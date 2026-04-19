@@ -6,13 +6,13 @@ Projeto desenvolvido como Requisito Funcional para a disciplina de Ciência da C
 
 ##  Sobre o Projeto
 
-O sistema busca apresentar de forma acessível e atrativa a identidade da cafeteria, permitindo que usuários conheçam os produtos, a história do estabelecimento e realizem interações diretas, como avaliações e agendamentos.
+O sistema busca apresentar de forma acessível e atrativa a identidade da cafeteria, permitindo que usuários conheçam os produtos, a história do estabelecimento e as informações de contato.
 
 ### Principais Funcionalidades
-* **Vitrine Digital:** Exposição de imagens dos principais cafés, pratos e do ambiente.
+* **Vitrine Digital:** Exposição de imagens dos principais produtos e do ambiente.
 * **Nossa História:** Seção dedicada à trajetória e ao processo de criação da marca.
-* **Cardápio Interativo:** Visualização de itens com mecanismo de avaliação de preferências.
-* **Agendamento de Encomendas:** Canal direto para solicitação de pedidos e informações de contato.
+* **Cardápio em QR Code:** Encaminhamento para o cardápio completo, com imagens e preços, através de QR Code.
+* **Informações de Contato:** Informações como contato de WhatsApp, para solicitações de encomendas diretamente com o estabelecimento, e perfil de Instagram, para acompanhamento de posts e novidades.
 
 ---
 
