@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Inicio from "../pages/Inicio";
-import Cardapio from "../pages/Cardapio";
-import SobreNos from "../pages/SobreNos";
-import Contato from "../pages/Contato";
-import Login from "../pages/Login";
-import RecuperarSenha from "../pages/RecuperarSenha";
+import Inicio from "../pages/publicas/Inicio";
+import Cardapio from "../pages/publicas/Cardapio";
+import SobreNos from "../pages/publicas/SobreNos";
+import Contato from "../pages/publicas/Contato";
+import Login from "../pages/admin/Login";
+import RecuperarSenha from "../pages/admin/RecuperarSenha";
 
 function AppRoutes() {
   return (
