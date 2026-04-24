@@ -1,25 +1,31 @@
 import { BrowserRouter, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import NavbarAdm from "./components/NavbarAdm";
 import AppRoutes from "./routes/AppRoutes";
 
 function Layout() {
   const location = useLocation();
   const path = location.pathname.toLowerCase();
 
-  const hideLayout =
-    path === "/login" || path === "/recuperar-senha";
+  const isAuthPage = path === "/login" || path === "/recuperar-senha";
+
+  const isAdminPage = path.startsWith("/adm");
 
   return (
     <>
-      {!hideLayout && <Navbar />}
+      {/* NAVBAR */}
+      {!isAuthPage && !isAdminPage && <Navbar />}
+      {!isAuthPage && isAdminPage && <NavbarAdm />}
 
+      {/* ROTAS */}
       <AppRoutes />
 
-      {!hideLayout && (
-        <footer className="footer-fixed">
-          © {new Date().getFullYear()} Dom Cafeteria — Todos os direitos reservados
-        </footer>
-      )}
+      {/* FOOTER (só usuário) */}
+
+      <footer className="footer-fixed">
+        © {new Date().getFullYear()} Dom Cafeteria — Todos os direitos
+        reservados
+      </footer>
     </>
   );
 }

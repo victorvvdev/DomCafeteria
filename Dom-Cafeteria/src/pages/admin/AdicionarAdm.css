@@ -1,0 +1,131 @@
+:root {
+  --bg: #5c3f3c;
+  --primary: #8c5a3c;
+  --secondary: #c08552;
+  --light: #f1e5c8;
+  --dark: #3b2a28;
+}
+
+.adicionar-adm-container {
+  width: 100%;
+  max-width: 1200px;
+  min-height: calc(100vh - 120px);
+  margin: 0 auto;
+  padding: 50px 24px 100px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-voltar {
+  position: absolute;
+  top: 35px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--light);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.btn-voltar:hover {
+  color: #fff4d8;
+  transform: translateX(-4px);
+}
+
+.card-adicionar-adm {
+  width: 100%;
+  max-width: 560px;
+  background-color: var(--primary);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(241, 229, 200, 0.2);
+}
+
+.card-titulo {
+  background-color: rgba(241, 229, 200, 0.12);
+  border-bottom: 2px solid rgba(241, 229, 200, 0.35);
+  padding: 28px 20px;
+  text-align: center;
+}
+
+.card-titulo h1 {
+  margin: 0;
+  color: var(--light);
+  font-size: 28px;
+}
+
+.form-adm {
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-adm input {
+  width: 100%;
+  padding: 15px 18px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  outline: none;
+  background-color: var(--light);
+  color: var(--dark);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.form-adm input::placeholder {
+  color: rgba(59, 42, 40, 0.65);
+}
+
+.form-adm input:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px rgba(192, 133, 82, 0.35);
+}
+
+.form-adm button {
+  margin: 12px auto 0;
+  padding: 13px 42px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--light);
+  color: var(--dark);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.form-adm button:hover {
+  background-color: #fff4d8;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+  .adicionar-adm-container {
+    padding: 80px 16px 90px;
+    align-items: flex-start;
+  }
+
+  .btn-voltar {
+    top: 28px;
+    left: 16px;
+  }
+
+  .card-adicionar-adm {
+    border-radius: 22px;
+  }
+
+  .card-titulo h1 {
+    font-size: 23px;
+  }
+
+  .form-adm {
+    padding: 24px;
+  }
+}
