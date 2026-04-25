@@ -1,0 +1,127 @@
+.inicio {
+  color: var(--creme);
+  padding: 25px 0 40px;
+}
+
+.inicio-apresentacao {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 35px;
+  align-items: stretch;
+}
+
+.inicio-texto,
+.inicio-imagem {
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  position: relative; 
+  height: 500px;
+  overflow-y: auto;
+}
+
+.inicio-texto {
+  background-color: var(--marrom);
+  padding: 55px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inicio-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inicio-editar-btn,
+.inicio-confirmar-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #f1e5c8;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-radius: 6px;
+  color: #5d4037;
+  font-weight: bold;
+  z-index: 20;
+}
+
+.inicio-confirmar-btn {
+  background-color: #a5d6a7;
+}
+
+.inicio-destaque-container {
+  width: 100%;
+  text-align: center;
+}
+
+.inicio-destaque {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #f7ecd6;
+  margin-bottom: 10px;
+}
+
+.inicio-barra {
+  width: 60%;
+  height: 2px;
+  background-color: rgba(241, 229, 200, 0.3);
+  margin: 20px 0;
+}
+
+.inicio-destaque-textarea,
+.inicio-info-textarea {
+  width: 100%;
+  background-color: #f7ecd6;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+
+.inicio-destaque-textarea {
+  text-align: center;
+  min-height: 80px;
+}
+
+.inicio-faq {
+  margin: 60px auto;
+  background-color: var(--marrom);
+  border-radius: 24px;
+  padding: 30px;
+  width: 75%;
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-inline {
+  position: static !important;
+  margin-left: 10px;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(241, 229, 200, 0.1);
+  padding: 15px 0;
+}
+
+.inicio-imagem-input {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+@media (max-width: 992px) {
+  .inicio-apresentacao { grid-template-columns: 1fr; }
+  .inicio-faq { width: 100%; }
+}

@@ -5,8 +5,6 @@ import SobreNos from "../pages/publicas/SobreNos";
 import Contato from "../pages/publicas/Contato";
 import Login from "../pages/admin/Login";
 import RecuperarSenha from "../pages/admin/RecuperarSenha";
-import ContatoAdm from "../pages/admin/ContatoAdm";
-import AdicionarAdm from "../pages/admin/AdicionarAdm";
 import InicioAdm from "../pages/admin/InicioAdm";
 
 function AppRoutes() {
@@ -19,10 +17,7 @@ function AppRoutes() {
 
       <Route path="/login" element={<Login />} />
       <Route path="/recuperar-senha" element={<RecuperarSenha />} />
-
       <Route path="/adm/inicioadm" element={<InicioAdm />} />
-      <Route path="/adm/contato" element={<ContatoAdm />} />
-      <Route path="/adm/adicionar" element={<AdicionarAdm />} />
     </Routes>
   );
 }
