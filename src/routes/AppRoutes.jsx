@@ -6,6 +6,8 @@ import Contato from "../pages/publicas/Contato";
 import Login from "../pages/admin/Login";
 import RecuperarSenha from "../pages/admin/RecuperarSenha";
 import InicioAdm from "../pages/admin/InicioAdm";
+import InfosPessoais from "../pages/admin/InfosPessoais";
+import InfosPessoais2 from "../pages/admin/InfosPessoais2";
 
 function AppRoutes() {
   return (
@@ -18,6 +20,8 @@ function AppRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/recuperar-senha" element={<RecuperarSenha />} />
       <Route path="/adm/inicioadm" element={<InicioAdm />} />
+      <Route path="/adm/infospessoais" element={<InfosPessoais />} />
+      <Route path="/adm/infospessoais2" element={<InfosPessoais2 />} />
     </Routes>
   );
 }

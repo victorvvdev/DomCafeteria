@@ -53,15 +53,12 @@ function InicioAdm() {
     <main className="inicio">
       <section className="inicio-apresentacao container">
         <div className="inicio-texto">
-          {editing === "texto" ? (
-            <button className="inicio-confirmar-btn" onClick={handleConfirmClick}>
-              Confirmar
-            </button>
-          ) : (
-            <button className="inicio-editar-btn" onClick={() => handleEditClick("texto")}>
-              Editar
-            </button>
-          )}
+          <button 
+            className={editing === "texto" ? "btn-acao-confirmar" : "btn-acao-editar"} 
+            onClick={editing === "texto" ? handleConfirmClick : () => handleEditClick("texto")}
+          >
+            {editing === "texto" ? "✓" : "✎"}
+          </button>
 
           <div className="inicio-destaque-container">
             {editing === "texto" ? (
@@ -75,7 +72,7 @@ function InicioAdm() {
             )}
           </div>
 
-          <p className="inicio-subtitulo">
+          <div className="inicio-subtitulo">
             {editing === "texto" ? (
               <textarea
                 className="inicio-destaque-textarea"
@@ -83,9 +80,9 @@ function InicioAdm() {
                 onChange={(e) => handleTextChange(e, "subtitulo")}
               />
             ) : (
-              textValues.subtitulo
+              <p>{textValues.subtitulo}</p>
             )}
-          </p>
+          </div>
 
           <div className="inicio-barra"></div>
 
@@ -107,25 +104,23 @@ function InicioAdm() {
         </div>
 
         <div className="inicio-imagem">
+          <button 
+            className={editing === "imagem" ? "btn-acao-confirmar" : "btn-acao-editar"} 
+            onClick={editing === "imagem" ? handleConfirmClick : () => handleEditClick("imagem")}
+          >
+            {editing === "imagem" ? "✓" : "✎"}
+          </button>
+
           {editing === "imagem" ? (
-            <>
+            <div className="upload-container">
               <input
                 type="file"
                 accept="image/*"
-                className="inicio-imagem-input"
                 onChange={handleImageChange}
               />
-              <button className="inicio-confirmar-btn" onClick={handleConfirmClick}>
-                Confirmar
-              </button>
-            </>
+            </div>
           ) : (
-            <>
-              <img src={textValues.imagemUrl} alt="Cafeteria" />
-              <button className="inicio-editar-btn" onClick={() => handleEditClick("imagem")}>
-                Editar
-              </button>
-            </>
+            <img src={textValues.imagemUrl} alt="Cafeteria" />
           )}
         </div>
       </section>
@@ -134,36 +129,35 @@ function InicioAdm() {
         <h3>Perguntas Frequentes</h3>
         {textValues.faqs.map((faq, index) => (
           <div className="faq-item" key={index}>
+            <button 
+              className={editing === `faq-${index}` ? "btn-acao-confirmar" : "btn-acao-editar"} 
+              onClick={editing === `faq-${index}` ? handleConfirmClick : () => handleEditClick(`faq-${index}`)}
+            >
+              {editing === `faq-${index}` ? "✓" : "✎"}
+            </button>
+
             <div className="faq-header">
               {editing === `faq-${index}` ? (
-                <>
-                  <textarea
-                    className="inicio-info-textarea"
-                    value={faq.pergunta}
-                    onChange={(e) => handleFaqChange(index, "pergunta", e.target.value)}
-                  />
-                  <button className="inicio-confirmar-btn btn-inline" onClick={handleConfirmClick}>
-                    Confirmar
-                  </button>
-                </>
+                <textarea
+                  className="inicio-info-textarea"
+                  value={faq.pergunta}
+                  onChange={(e) => handleFaqChange(index, "pergunta", e.target.value)}
+                />
               ) : (
-                <>
-                  <h4>{faq.pergunta}</h4>
-                  <button className="inicio-editar-btn btn-inline" onClick={() => handleEditClick(`faq-${index}`)}>
-                    Editar
-                  </button>
-                </>
+                <h4>{faq.pergunta}</h4>
               )}
             </div>
-            {editing === `faq-${index}` ? (
-              <textarea
-                className="inicio-info-textarea"
-                value={faq.resposta}
-                onChange={(e) => handleFaqChange(index, "resposta", e.target.value)}
-              />
-            ) : (
-              <p>{faq.resposta}</p>
-            )}
+            <div className="faq-corpo">
+              {editing === `faq-${index}` ? (
+                <textarea
+                  className="inicio-info-textarea"
+                  value={faq.resposta}
+                  onChange={(e) => handleFaqChange(index, "resposta", e.target.value)}
+                />
+              ) : (
+                <p>{faq.resposta}</p>
+              )}
+            </div>
           </div>
         ))}
       </section>
