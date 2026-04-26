@@ -1,0 +1,45 @@
+.editar-link-page {
+  min-height: 100vh;
+}
+
+.editar-link-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.editar-link-input {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--creme);
+  background: transparent;
+  color: var(--creme);
+  font-size: 15px;
+  outline: none;
+}
+
+.editar-link-input::placeholder {
+  color: var(--creme);
+  opacity: 0.6;
+}
+
+.editar-link-input:focus {
+  border-color: var(--marrom);
+}
+
+.editar-link-mensagem {
+  text-align: center;
+  color: var(--creme);
+  font-size: 14px;
+  margin: 0;
+}
+
+.editar-link-acoes {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
+}

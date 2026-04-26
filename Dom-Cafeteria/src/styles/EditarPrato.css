@@ -1,0 +1,81 @@
+.editar-prato-page {
+  min-height: 100vh;
+}
+
+.editar-prato-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.editar-prato-foto-wrapper {
+  position: relative;
+  width: 280px;
+  min-width: 280px;
+  aspect-ratio: 1/1;
+  border-radius: 16px;
+  border: 2px solid var(--creme);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.editar-prato-foto-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.editar-prato-foto-placeholder {
+  color: var(--creme);
+  opacity: 0.5;
+  font-size: 15px;
+}
+
+.btn-editar-foto {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--creme);
+  transition: opacity 0.2s;
+}
+
+.btn-editar-foto:hover {
+  opacity: 0.7;
+}
+
+.editar-prato-campos {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.editar-prato-input {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--creme);
+  background: transparent;
+  color: var(--creme);
+  font-size: 15px;
+  outline: none;
+}
+
+.editar-prato-input::placeholder {
+  color: var(--creme);
+  opacity: 0.6;
+}
+
+.editar-prato-input:focus {
+  border-color: var(--marrom);
+}
