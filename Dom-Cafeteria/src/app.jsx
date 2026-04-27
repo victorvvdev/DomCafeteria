@@ -7,7 +7,7 @@ function Layout() {
   const location = useLocation();
   const path = location.pathname.toLowerCase();
 
-  const isAuthPage = path === "/login" || path === "/recuperar-senha";
+  const isAuthPage = path === "/login" || path === "/recuperarsenha";
 
   const isAdminPage = path.startsWith("/adm");
 

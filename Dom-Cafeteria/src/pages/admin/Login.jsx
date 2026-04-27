@@ -1,8 +1,15 @@
 import "./Login.css";
 import logo from "../../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault(); 
+    navigate("/adm/inicioadm")
+  }
+
   return (
     <main className="login-page">
       <section className="login-wrapper">
@@ -14,7 +21,7 @@ function Login() {
           <div className="login-body">
             <h1 className="login-title">Área Administrativa</h1>
 
-            <form className="login-form">
+            <form className="login-form" onSubmit={handleSubmit}>
               <div className="login-field">
                 <label htmlFor="usuario">Usuário</label>
                 <input
@@ -36,7 +43,7 @@ function Login() {
               </div>
 
               <div className="login-actions">
-                <Link to="/recuperar-senha" className="login-forgot">
+                <Link to="/recuperarsenha" className="login-forgot">
                   Esqueceu a senha?
                 </Link>
               </div>
