@@ -1,0 +1,61 @@
+.cardapio-page {
+  min-height: 100vh;
+}
+
+.cardapio-topo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.btn-editar-topo {
+  position: absolute;
+  left: 0;
+  background: none;
+  border: none;
+  color: var(--creme);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: opacity 0.2s;
+}
+
+.btn-editar-topo:hover {
+  opacity: 0.7;
+}
+
+.btn-cardapio-completo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 28px;
+  border-radius: 20px;
+  font-size: 15px;
+  text-decoration: none;
+  border: 1px solid var(--creme);
+  color: var(--creme);
+  background: transparent;
+  transition: 0.3s;
+}
+
+.btn-cardapio-completo:hover {
+  background-color: var(--creme);
+  color: var(--marrom);
+}
+
+.btn-editar-link {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+
+.btn-editar-link:hover {
+  opacity: 0.7;
+}
