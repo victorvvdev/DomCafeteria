@@ -1,0 +1,249 @@
+:root {
+  --bg: #5c3f3c;
+  --primary: #8c5a3c;
+  --secondary: #c08552;
+  --light: #f1e5c8;
+  --dark: #3b2a28;
+}
+
+.contato-adm-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 45px 24px 90px;
+}
+
+.contato-adm-banner {
+  min-height: 270px;
+  border-radius: 28px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../../assets/banner-contato.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  margin-bottom: 45px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-overlay {
+  text-align: center;
+  padding: 40px;
+}
+
+.banner-overlay h1 {
+  font-size: 46px;
+  margin-bottom: 14px;
+  color: var(--light);
+}
+
+.banner-overlay p {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #fff5df;
+}
+
+.banner-edit {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.contato-adm-content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px;
+}
+
+.contato-adm-info,
+.contato-adm-card {
+  background-color: var(--primary);
+  border-radius: 24px;
+  padding: 34px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.contato-adm-info h2,
+.contato-adm-card h2 {
+  font-size: 30px;
+  margin-bottom: 12px;
+  color: var(--light);
+}
+
+.contato-texto {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fff1d3;
+  margin-bottom: 28px;
+}
+
+.info-card-adm {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background-color: rgba(241, 229, 200, 0.12);
+  border: 1px solid rgba(241, 229, 200, 0.25);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.info-card-adm div {
+  flex: 1;
+}
+
+.info-icon {
+  width: 52px;
+  height: 52px;
+  background-color: var(--light);
+  color: var(--dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.info-card-adm h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: var(--light);
+}
+
+.info-card-adm p {
+  margin: 0;
+  color: #fff1d3;
+}
+
+.btn-editar {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--light);
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-editar:hover {
+  background-color: #fff4d8;
+  transform: scale(1.08);
+}
+
+.titulo-com-editar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.horario-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(241, 229, 200, 0.25);
+}
+
+.horario-item span {
+  color: #fff1d3;
+}
+
+.horario-item strong {
+  color: var(--light);
+}
+
+.whatsapp-link-adm {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.btn-whatsapp {
+  flex: 1;
+  padding: 15px 20px;
+  border-radius: 999px;
+  background-color: var(--light);
+  color: var(--dark);
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background-color: #fff4d8;
+  transform: translateY(-3px);
+}
+
+.btn-link {
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .contato-adm-content {
+    grid-template-columns: 1fr;
+  }
+
+  .banner-overlay h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contato-adm-container {
+    padding: 24px 16px 70px;
+  }
+
+  .contato-adm-banner {
+    min-height: 220px;
+    border-radius: 22px;
+  }
+
+  .banner-overlay {
+    padding: 28px 20px;
+  }
+
+  .banner-overlay h1 {
+    font-size: 32px;
+  }
+
+  .banner-overlay p {
+    font-size: 15px;
+  }
+
+  .contato-adm-info,
+  .contato-adm-card {
+    padding: 24px;
+  }
+
+  .info-card-adm {
+    align-items: flex-start;
+  }
+
+  .horario-item {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .whatsapp-link-adm {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-link {
+    width: 100%;
+    border-radius: 999px;
+  }
+}
