@@ -23,7 +23,7 @@ function AppRoutes() {
   return (
     <Routes>
       {/* PUBLICO */}
-      <Route path="/inicio" element={<Inicio />} />
+      <Route path="/" element={<Inicio />} />
       <Route path="/cardapio" element={<Cardapio />} />
       <Route path="/sobre" element={<SobreNos />} />
       <Route path="/contato" element={<Contato />} />
