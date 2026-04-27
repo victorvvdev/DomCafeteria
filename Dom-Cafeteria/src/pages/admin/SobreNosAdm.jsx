@@ -1,10 +1,21 @@
-import "./SobreNos.css";
+import { useState } from "react";
+import "./SobreNosAdm.css";
 
-function SobreNos() {
+function SobreNosAdm() {
+  const [editing, setEditing] = useState(null);
+
+  const handleEditClick = (campo) => {
+    setEditing(campo);
+  };
+
+  const handleConfirmClick = () => {
+    setEditing(null);
+  };
+
   return (
-    <main className="sobre">
-      <section className="sobre-topo">
-        <div className="sobre-topo-texto">
+    <main className="adm-sobre-page">
+      <section className="adm-sobre-topo">
+        <div className="adm-sobre-topo-texto">
           <h1>Uma história feita com amor, família e cuidado</h1>
           <p>
             Conheça a trajetória da Dom Divino e da Dom Cafeteria, construída
@@ -13,9 +24,26 @@ function SobreNos() {
         </div>
       </section>
 
-      <section className="sobre-historia">
-        <div className="sobre-historia-texto">
-          <h2>Nossa história</h2>
+      <section className="adm-sobre-historia">
+        <div className="adm-sobre-historia-texto">
+          <div className="sobre-adm-titulo">
+            <h2>Nossa história</h2>
+
+            <button
+              className={
+                editing === "historia"
+                  ? "btn-acao-confirmar"
+                  : "btn-acao-editar"
+              }
+              onClick={
+                editing === "historia"
+                  ? handleConfirmClick
+                  : () => handleEditClick("historia")
+              }
+            >
+              {editing === "historia" ? "✓" : "✎"}
+            </button>
+          </div>
 
           <p>
             A história da <strong>Dom Divino</strong> começou de forma simples,
@@ -90,20 +118,39 @@ function SobreNos() {
         </div>
       </section>
 
-      <section className="sobre-espaco">
-        <div className="sobre-espaco-conteudo">
-          <div className="sobre-espaco-topo">
-            <h2>Nosso espaço</h2>
+      <section className="adm-sobre-espaco">
+        <div className="adm-sobre-espaco-conteudo">
+          <div className="adm-sobre-espaco-topo">
+            <div className="sobre-adm-titulo">
+              <h2>Nosso espaço</h2>
+
+              <button
+                className={
+                  editing === "espaco"
+                    ? "btn-acao-confirmar"
+                    : "btn-acao-editar"
+                }
+                onClick={
+                  editing === "espaco"
+                    ? handleConfirmClick
+                    : () => handleEditClick("espaco")
+                }
+              >
+                {editing === "espaco" ? "✓" : "✎"}
+              </button>
+            </div>
+
             <p>
               Enquanto as fotos finais não são adicionadas, você já pode deixar
               a estrutura visual pronta com placeholders elegantes.
             </p>
           </div>
 
-          <div className="sobre-cards">
-            <article className="sobre-card">
-              <div className="placeholder-img">Imagem do ambiente</div>
-              <div className="sobre-card-info">
+          <div className="adm-sobre-cards">
+            <article className="adm-sobre-card">
+              <div className="adm-placeholder-img">Imagem do ambiente</div>
+
+              <div className="adm-sobre-card-info">
                 <h3>Ambiente aconchegante</h3>
                 <p>
                   Um espaço elegante e confortável para aproveitar cada momento.
@@ -111,9 +158,10 @@ function SobreNos() {
               </div>
             </article>
 
-            <article className="sobre-card">
-              <div className="placeholder-img">Imagem da cafeteria</div>
-              <div className="sobre-card-info">
+            <article className="adm-sobre-card">
+              <div className="adm-placeholder-img">Imagem da cafeteria</div>
+
+              <div className="adm-sobre-card-info">
                 <h3>Detalhes especiais</h3>
                 <p>
                   Um ambiente planejado para unir charme, conforto e identidade.
@@ -121,9 +169,10 @@ function SobreNos() {
               </div>
             </article>
 
-            <article className="sobre-card">
-              <div className="placeholder-img">Imagem do espaço premium</div>
-              <div className="sobre-card-info">
+            <article className="adm-sobre-card">
+              <div className="adm-placeholder-img">Imagem do espaço premium</div>
+
+              <div className="adm-sobre-card-info">
                 <h3>Experiência única</h3>
                 <p>
                   Um lugar pensado para tornar cada visita mais marcante.
@@ -137,4 +186,4 @@ function SobreNos() {
   );
 }
 
-export default SobreNos;
+export default SobreNosAdm;
