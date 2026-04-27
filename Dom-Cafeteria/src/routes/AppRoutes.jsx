@@ -9,6 +9,9 @@ import Login from "../pages/admin/Login";
 import RecuperarSenha from "../pages/admin/RecuperarSenha";
 import ContatoAdm from "../pages/admin/ContatoAdm";
 import AdicionarAdm from "../pages/admin/AdicionarAdm";
+import InicioAdm from "../pages/admin/InicioAdm";
+import InfosPessoais from "../pages/admin/InfosPessoais";
+import InfosPessoais2 from "../pages/admin/InfosPessoais2";
 
 function AppRoutes() {
   return (
@@ -26,6 +29,9 @@ function AppRoutes() {
       {/* ADMIN */}
       <Route path="/adm/contato" element={<ContatoAdm />} />
       <Route path="/adm/adicionar" element={<AdicionarAdm />} />
+      <Route path="/adm/inicioadm" element={<InicioAdm />} />
+      <Route path="/adm/infospessoais" element={<InfosPessoais />} />
+      <Route path="/adm/infospessoais2" element={<InfosPessoais2 />} />
     </Routes>
   );
 }

@@ -1,0 +1,128 @@
+.inicio {
+  color: var(--creme);
+  padding: 25px 0 40px;
+}
+
+.inicio-apresentacao {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 35px;
+  align-items: flex-start;
+}
+
+.inicio-texto,
+.inicio-imagem,
+.faq-item {
+  position: relative;
+  border-radius: 24px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  background-color: var(--marrom);
+}
+
+.inicio-texto {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 460px;
+  height: fit-content;
+}
+
+.btn-acao-editar, 
+.btn-acao-confirmar {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  z-index: 10;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.btn-acao-editar { 
+  color: var(--creme); 
+  opacity: 0.6; 
+}
+
+.btn-acao-confirmar { 
+  color: #a5d6a7; 
+}
+
+.btn-acao-editar:hover, 
+.btn-acao-confirmar:hover { 
+  transform: scale(1.2); 
+  opacity: 1; 
+}
+
+.inicio-destaque-textarea, 
+.inicio-info-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(241, 229, 200, 0.2);
+  border-radius: 10px;
+  color: #f7ecd6;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: none;
+  margin: 5px 0;
+}
+
+.inicio-destaque {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #f7ecd6;
+  margin-bottom: 14px;
+}
+
+.inicio-barra {
+  width: 60%;
+  height: 2px;
+  background-color: rgba(241, 229, 200, 0.3);
+  margin: 20px 0;
+}
+
+.inicio-imagem {
+  height: 460px;
+}
+
+.inicio-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--creme);
+}
+
+.inicio-faq {
+  margin-top: 50px;
+  padding: 30px;
+  width: 72%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-item {
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: none;
+  border-bottom: 1px solid rgba(241, 229, 200, 0.1);
+  border-radius: 0;
+}
+
+.faq-header h4 {
+  margin-right: 40px;
+}
