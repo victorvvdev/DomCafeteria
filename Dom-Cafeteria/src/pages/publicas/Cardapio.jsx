@@ -1,27 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CardPrato from "../../components/CardPrato";
-import { fetchPratos } from "../../services/cardapioService";
-
-const LINK_CARDAPIO = "https://SEU_LINK_EXTERNO";
+import { getPratos, getLinkCardapio } from "../../services/cardapioService";
 
 export default function Cardapio() {
-  const [pratos, setPratos] = useState([]);
-  const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState(null);
-
-  useEffect(() => {
-    fetchPratos()
-      .then(setPratos)
-      .catch(() => setErro("Não foi possível carregar os pratos."))
-      .finally(() => setCarregando(false));
-  }, []);
+  const [pratos] = useState(getPratos);
+  const linkCardapio = getLinkCardapio();
 
   return (
     <div className="container py-4">
-
       <div className="text-center mb-4">
         <a
-          href={LINK_CARDAPIO}
+          href={linkCardapio}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-custom"
@@ -31,28 +20,13 @@ export default function Cardapio() {
         </a>
       </div>
 
-      {carregando && (
-        <div className="text-center py-5">
-          <div className="spinner-border" style={{ color: "var(--creme)" }} role="status">
-            <span className="visually-hidden">Carregando...</span>
+      <div className="row g-4">
+        {pratos.map((prato) => (
+          <div key={prato.id} className="col-12 col-sm-6 col-lg-4">
+            <CardPrato prato={prato} />
           </div>
-        </div>
-      )}
-
-      {erro && (
-        <p className="text-center" style={{ color: "var(--creme)" }}>{erro}</p>
-      )}
-
-      {!carregando && !erro && (
-        <div className="row g-4">
-          {pratos.map((prato) => (
-            <div key={prato.id} className="col-12 col-sm-6 col-lg-4">
-              <CardPrato prato={prato} />
-            </div>
-          ))}
-        </div>
-      )}
-
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchPratos } from "../../services/cardapioService";
+import { getPratos, setPratos } from "../../services/cardapioService";
 import "../../styles/EditarPrato.css";
 
 export default function EditarPrato() {
@@ -11,46 +11,42 @@ export default function EditarPrato() {
 
   const [nome, setNome] = useState("");
   const [preview, setPreview] = useState(null);
-  const [carregando, setCarregando] = useState(isEdicao);
 
   useEffect(() => {
     if (!isEdicao) return;
-    fetchPratos()
-      .then((pratos) => {
-        const prato = pratos.find((p) => String(p.id) === String(id));
-        if (prato) {
-          setNome(prato.nome);
-          setPreview(prato.imagem_url);
-        }
-      })
-      .catch(() => {})
-      .finally(() => setCarregando(false));
+    const pratos = getPratos();
+    const prato = pratos.find((p) => String(p.id) === String(id));
+    if (prato) {
+      setNome(prato.nome);
+      setPreview(prato.imagem_url || null);
+    }
   }, [id]);
 
   function handleFotoChange(e) {
     const file = e.target.files[0];
     if (!file) return;
-    setPreview(URL.createObjectURL(file));
+    const reader = new FileReader();
+    reader.onload = () => setPreview(reader.result);
+    reader.readAsDataURL(file);
   }
 
   function handleSalvar() {
+    const pratos = getPratos();
+    if (isEdicao) {
+      const atualizados = pratos.map((p) =>
+        String(p.id) === String(id) ? { ...p, nome, imagem_url: preview } : p
+      );
+      setPratos(atualizados);
+    } else {
+      const novoId = Date.now();
+      const novo = { id: novoId, nome, imagem_url: preview };
+      setPratos([...pratos, novo]);
+    }
     navigate(-1);
   }
 
   function handleCancelar() {
     navigate(-1);
-  }
-
-  if (carregando) {
-    return (
-      <div className="editar-prato-page">
-        <div className="text-center py-5">
-          <div className="spinner-border" style={{ color: "var(--creme)" }} role="status">
-            <span className="visually-hidden">Carregando...</span>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   return (
@@ -65,7 +61,6 @@ export default function EditarPrato() {
 
       <div className="container py-4">
         <div className="editar-prato-content">
-
           <div className="editar-prato-foto-wrapper">
             {preview ? (
               <img src={preview} alt="foto do prato" />
@@ -92,7 +87,6 @@ export default function EditarPrato() {
               Cancelar
             </button>
           </div>
-
         </div>
       </div>
     </div>

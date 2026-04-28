@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { fetchLinkCardapio } from "../../services/cardapioService";
+import { useState } from "react";
+import { getLinkCardapio, setLinkCardapio } from "../../services/cardapioService";
 import "../../styles/EditarLinkCardapio.css";
 
 function isLinkValido(link) {
@@ -12,17 +12,9 @@ function isLinkValido(link) {
 }
 
 export default function EditarLinkCardapio() {
-  const [linkAtual, setLinkAtual] = useState("");
+  const [linkAtual, setLinkAtual] = useState(getLinkCardapio);
   const [novoLink, setNovoLink] = useState("");
-  const [carregando, setCarregando] = useState(true);
   const [mensagem, setMensagem] = useState(null);
-
-  useEffect(() => {
-    fetchLinkCardapio()
-      .then((dados) => setLinkAtual(dados.url))
-      .catch(() => {})
-      .finally(() => setCarregando(false));
-  }, []);
 
   function handleAlterar() {
     if (!novoLink.trim()) {
@@ -37,17 +29,19 @@ export default function EditarLinkCardapio() {
       setMensagem("Os links estão iguais.");
       return;
     }
+    setLinkCardapio(novoLink);
     setLinkAtual(novoLink);
     setNovoLink("");
     setMensagem("Link alterado com sucesso.");
   }
 
   function handleRemover() {
-    if (!linkAtual) {
+    if (!linkAtual || linkAtual === "#") {
       setMensagem("Não existe um link atual para remover.");
       return;
     }
-    setLinkAtual("");
+    setLinkCardapio("#");
+    setLinkAtual("#");
     setMensagem("Link removido com sucesso.");
   }
 
@@ -55,11 +49,10 @@ export default function EditarLinkCardapio() {
     <div className="editar-link-page">
       <div className="container py-4">
         <div className="editar-link-form">
-
           <input
             className="editar-link-input"
             type="text"
-            placeholder={carregando ? "Carregando..." : `Link atual: ${linkAtual || "nenhum"}`}
+            placeholder={`Link atual: ${linkAtual === "#" ? "nenhum" : linkAtual}`}
             disabled
           />
 
@@ -83,7 +76,6 @@ export default function EditarLinkCardapio() {
               Remover
             </button>
           </div>
-
         </div>
       </div>
     </div>

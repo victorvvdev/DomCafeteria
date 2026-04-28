@@ -1,13 +1,24 @@
-const API_URL = "https://API";
+const PRATOS_INICIAIS = [
+  { id: 1, nome: "nome do prato..." },
+  { id: 2, nome: "nome do prato..." },
+  { id: 3, nome: "nome do prato..." },
+  { id: 4, nome: "nome do prato..." },
+  { id: 5, nome: "nome do prato..." },
+];
 
-export async function fetchPratos() {
-  const response = await fetch(`${API_URL}/pratos`);
-  if (!response.ok) throw new Error("Erro ao buscar pratos");
-  return response.json();
+export function getPratos() {
+  const dados = localStorage.getItem("pratos");
+  return dados ? JSON.parse(dados) : PRATOS_INICIAIS;
 }
 
-export async function fetchLinkCardapio() {
-  const response = await fetch(`${API_URL}/link-cardapio`);
-  if (!response.ok) throw new Error("Erro ao buscar link do cardápio");
-  return response.json();
+export function setPratos(pratos) {
+  localStorage.setItem("pratos", JSON.stringify(pratos));
+}
+
+export function getLinkCardapio() {
+  return localStorage.getItem("linkCardapio") || "#";
+}
+
+export function setLinkCardapio(link) {
+  localStorage.setItem("linkCardapio", link);
 }
