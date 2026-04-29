@@ -20,71 +20,79 @@ function InfosPessoais2() {
   };
 
   return (
-    <section className="centralizado">
-      <div className="inicio-texto">
-        <h2 className="titulo">Alterar Senha</h2>
-        <div className="inicio-barra"></div>
-        
-        <div className="form-container">
-          <div className="input-wrapper">
-            <label className="label-fixo">Senha Atual</label>
-            <input 
-              type="password" 
-              className="info-input em-edicao" 
-              value={senhas.atual}
-              onChange={(e) => setSenhas({...senhas, atual: e.target.value})} 
-            />
+    <main className="senha-page">
+      <section className="senha-wrapper">
+        <div className="senha-card">
+          <div className="senha-top">
+            <h2 className="senha-title">Alterar Senha</h2>
           </div>
 
-          <div className="input-wrapper">
-            <label className="label-fixo">Nova Senha</label>
-            <input 
-              type="password" 
-              className={`info-input em-edicao ${senhaCurtaOuSimples ? "input-erro" : ""}`}
-              value={senhas.nova}
-              onChange={(e) => setSenhas({...senhas, nova: e.target.value})} 
-            />
-          </div>
+          <div className="senha-body">
+            <div className="senha-form">
+              <div className="senha-field">
+                <label>Senha Atual</label>
+                <input 
+                  type="password" 
+                  className="senha-input" 
+                  placeholder="Digite a senha atual"
+                  value={senhas.atual}
+                  onChange={(e) => setSenhas({...senhas, atual: e.target.value})} 
+                />
+              </div>
 
-          <div className="input-wrapper">
-            <label className="label-fixo">Confirmar Nova Senha</label>
-            <input 
-              type="password" 
-              className={`info-input em-edicao ${senhasDiferentes ? "input-erro" : ""}`}
-              value={senhas.confirmar}
-              onChange={(e) => setSenhas({...senhas, confirmar: e.target.value})} 
-            />
-            
-            <div className="container-avisos">
-              {senhaCurtaOuSimples && (
-                <span className="erro-mensagem-senha">
-                  A senha deve conter pelo menos 8 caracteres, incluindo uma letra maiúscula e uma letra minúscula.
-                </span>
-              )}
-              {senhasDiferentes && (
-                <span className="erro-mensagem-senha">
-                  A Nova Senha e a Confirmação precisam ser iguais.
-                </span>
-              )}
+              <div className="senha-field">
+                <label>Nova Senha</label>
+                <input 
+                  type="password" 
+                  className={`senha-input ${senhaCurtaOuSimples ? "error" : ""}`}
+                  placeholder="Digite a nova senha"
+                  value={senhas.nova}
+                  onChange={(e) => setSenhas({...senhas, nova: e.target.value})} 
+                />
+              </div>
+
+              <div className="senha-field">
+                <label>Confirmar Nova Senha</label>
+                <input 
+                  type="password" 
+                  className={`senha-input ${senhasDiferentes ? "error" : ""}`}
+                  placeholder="Confirme a nova senha"
+                  value={senhas.confirmar}
+                  onChange={(e) => setSenhas({...senhas, confirmar: e.target.value})} 
+                />
+                
+                <div className="senha-avisos">
+                  {senhaCurtaOuSimples && (
+                    <span className="senha-error-msg">
+                      A senha deve conter pelo menos 8 caracteres (A-z).
+                    </span>
+                  )}
+                  {senhasDiferentes && (
+                    <span className="senha-error-msg">
+                      As senhas não coincidem.
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="senha-actions">
+                <button 
+                  className="senha-btn-confirm" 
+                  onClick={handleConfirmar}
+                  disabled={camposVazios || senhaCurtaOuSimples || senhasDiferentes}
+                >
+                  Confirmar Alteração
+                </button>
+                <button className="senha-btn-cancel" onClick={() => navigate(-1)}>
+                  Cancelar
+                </button>
+              </div>
             </div>
           </div>
-
-          <div className="container-botoes-senha">
-            <button 
-              className="btn-acao-salvar" 
-              onClick={handleConfirmar}
-              disabled={camposVazios || senhaCurtaOuSimples || senhasDiferentes}
-            >
-              Confirmar
-            </button>
-            <button className="btn-acao-cancelar" onClick={() => navigate(-1)}>
-              Cancelar
-            </button>
-          </div>
         </div>
-      </div>
-      {sucesso && <div className="alerta-sucesso">Senha alterada com sucesso</div>}
-    </section>
+      </section>
+      {sucesso && <div className="senha-toast">Senha alterada com sucesso!</div>}
+    </main>
   );
 }
 

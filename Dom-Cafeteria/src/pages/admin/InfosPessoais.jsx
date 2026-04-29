@@ -50,87 +50,96 @@ function InfosPessoais() {
   };
 
   return (
-    <section className="centralizado-adm">
-      <div className="card-pessoal">
-        <h2 className="titulo-adm">Informações Pessoais</h2>
-        <div className="barra-adm"></div>
-
-        <div className="form-container">
-          <div className="input-wrapper">
-            <label className="label-fixo">Nome</label>
-            <input type="text" value={dados.nome} className="info-input" readOnly />
+    <main className="pessoal-page">
+      <section className="pessoal-wrapper">
+        <div className="pessoal-card">
+          <div className="pessoal-top">
+            <h2 className="pessoal-title">Informações Pessoais</h2>
           </div>
 
-          <div className="input-wrapper">
-            <label className="label-fixo">Telefone</label>
-            <div className="input-com-botao">
-              <input 
-                name="telefone" value={dados.telefone} onChange={handleChange}
-                readOnly={!editando.telefone}
-                className={`info-input ${editando.telefone ? "em-edicao" : ""} ${erros.telefone ? "input-erro" : ""}`} 
-              />
-              <button 
-                type="button" 
-                className={editando.telefone ? "btn-acao-confirmar-input" : "btn-acao-editar-input"} 
-                onClick={() => handleAction("telefone")} 
-                disabled={editando.telefone && !!erros.telefone}
-              >
-                {editando.telefone ? "✓" : "✎"}
-              </button>
-              {editando.telefone && erros.telefone && <span className="erro-mensagem">{erros.telefone}</span>}
-            </div>
-          </div>
+          <div className="pessoal-body">
+            <div className="pessoal-form">
+              <div className="pessoal-field">
+                <label>Nome</label>
+                <input type="text" value={dados.nome} className="pessoal-input readonly" readOnly />
+              </div>
 
-          <div className="input-wrapper">
-            <label className="label-fixo">Email</label>
-            <div className="input-com-botao">
-              <input 
-                name="email" value={dados.email} onChange={handleChange}
-                readOnly={!editando.email}
-                className={`info-input ${editando.email ? "em-edicao" : ""} ${erros.email ? "input-erro" : ""}`} 
-              />
-              <button 
-                type="button" 
-                className={editando.email ? "btn-acao-confirmar-input" : "btn-acao-editar-input"} 
-                onClick={() => handleAction("email")} 
-                disabled={editando.email && !!erros.email}
-              >
-                {editando.email ? "✓" : "✎"}
-              </button>
-              {editando.email && erros.email && <span className="erro-mensagem">{erros.email}</span>}
-            </div>
-          </div>
+              <div className="pessoal-field">
+                <label>Telefone</label>
+                <div className="input-group">
+                  <input 
+                    name="telefone" 
+                    value={dados.telefone} 
+                    onChange={handleChange}
+                    readOnly={!editando.telefone}
+                    className={`pessoal-input ${editando.telefone ? "editing" : ""} ${erros.telefone ? "error" : ""}`} 
+                  />
+                  <button 
+                    type="button" 
+                    className={editando.telefone ? "btn-save" : "btn-edit"} 
+                    onClick={() => handleAction("telefone")} 
+                    disabled={editando.telefone && !!erros.telefone}
+                  >
+                    {editando.telefone ? "✓" : "✎"}
+                  </button>
+                </div>
+                {editando.telefone && erros.telefone && <span className="pessoal-error-msg">{erros.telefone}</span>}
+              </div>
 
-          <div className="input-wrapper">
-            <label className="label-fixo">Senha</label>
-            <div className="input-com-botao">
-              <input type="password" value="********" className="info-input" readOnly />
-              <button 
-                type="button" 
-                className="btn-acao-editar-input" 
-                onClick={() => navigate("/adm/infospessoais2")}
-              >
-                ✎
-              </button>
+              <div className="pessoal-field">
+                <label>Email</label>
+                <div className="input-group">
+                  <input 
+                    name="email" 
+                    value={dados.email} 
+                    onChange={handleChange}
+                    readOnly={!editando.email}
+                    className={`pessoal-input ${editando.email ? "editing" : ""} ${erros.email ? "error" : ""}`} 
+                  />
+                  <button 
+                    type="button" 
+                    className={editando.email ? "btn-save" : "btn-edit"} 
+                    onClick={() => handleAction("email")} 
+                    disabled={editando.email && !!erros.email}
+                  >
+                    {editando.email ? "✓" : "✎"}
+                  </button>
+                </div>
+                {editando.email && erros.email && <span className="pessoal-error-msg">{erros.email}</span>}
+              </div>
+
+              <div className="pessoal-field">
+                <label>Senha</label>
+                <div className="input-group">
+                  <input type="password" value="********" className="pessoal-input readonly" readOnly />
+                  <button 
+                    type="button" 
+                    className="btn-edit" 
+                    onClick={() => navigate("/adm/infospessoais2")}
+                  >
+                    ✎
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {mostrarModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="pessoal-modal-overlay">
+          <div className="pessoal-modal-content">
             <p>Deseja salvar o novo {campoParaSalvar === "telefone" ? "Telefone" : "Email"}?</p>
-            <div className="modal-botoes">
-              <button className="btn-confirmar" onClick={confirmarSalvamento}>Salvar</button>
-              <button className="btn-cancelar" onClick={() => setMostrarModal(false)}>Cancelar</button>
+            <div className="pessoal-modal-actions">
+              <button className="btn-modal-confirm" onClick={confirmarSalvamento}>Salvar</button>
+              <button className="btn-modal-cancel" onClick={() => setMostrarModal(false)}>Cancelar</button>
             </div>
           </div>
         </div>
       )}
 
-      {alertaSucesso && <div className="alerta-sucesso">Informação salva com sucesso</div>}
-    </section>
+      {alertaSucesso && <div className="pessoal-toast">Informação salva com sucesso</div>}
+    </main>
   );
 }
 
