@@ -67,7 +67,7 @@
 }
 
 .btn-acao-confirmar {
-  color: #a5d6a7;
+  color: var(--creme);
   background: rgba(0, 0, 0, 0.4);
 }
 
