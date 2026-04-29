@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPratos, setPratos, getLinkCardapio } from "../../services/cardapioService";
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import "../../styles/EditarCardapio.css";
 
 export default function EditarCardapio() {
@@ -24,15 +25,22 @@ export default function EditarCardapio() {
   }
 
   return (
-    <div className="editar-cardapio-page">
-      <div className="container py-4">
+    <main className="editar-cardapio-container">
+      <section className="editar-cardapio-banner">
+        <div className="banner-overlay">
+          <h1>Editar Cardápio</h1>
+          <p>Gerencie os pratos do seu cardápio.</p>
+        </div>
+      </section>
+
+      <section className="editar-cardapio-content">
         <div className="editar-cardapio-topo">
           <div className="editar-cardapio-acoes">
             <button className="btn-acao-topo" onClick={() => navigate("/adm/AdicionarPrato")}>
-              +
+              <FaPlus />
             </button>
             <button className="btn-acao-topo" onClick={handleRemoverSelecionados}>
-              🗑️
+              <FaTrash />
             </button>
           </div>
 
@@ -50,35 +58,33 @@ export default function EditarCardapio() {
                 navigate("/adm/EditarLinkCardapio");
               }}
             >
-              ✎
+              <FaEdit />
             </button>
           </a>
         </div>
 
-        <div className="row g-4">
+        <div className="editar-cardapio-grid">
           {pratos.map((prato) => (
-            <div key={prato.id} className="col-12 col-sm-6 col-lg-4">
-              <div className="card-prato-editar">
-                <div className="card-prato-editar-img-wrapper">
-                  <input
-                    type="checkbox"
-                    className="card-checkbox"
-                    checked={selecionados.includes(prato.id)}
-                    onChange={() => handleSelecionar(prato.id)}
-                  />
-                  <button
-                    className="btn-editar-card"
-                    onClick={() => navigate(`/adm/EditarPrato/${prato.id}`)}
-                  >
-                    ✎
-                  </button>
-                </div>
-                <p className="card-prato-nome">{prato.nome}</p>
+            <div key={prato.id} className="card-prato-editar">
+              <div className="card-prato-editar-img-wrapper">
+                <input
+                  type="checkbox"
+                  className="card-checkbox"
+                  checked={selecionados.includes(prato.id)}
+                  onChange={() => handleSelecionar(prato.id)}
+                />
+                <button
+                  className="btn-editar-card"
+                  onClick={() => navigate(`/adm/EditarPrato/${prato.id}`)}
+                >
+                  <FaEdit />
+                </button>
               </div>
+              <p className="card-prato-nome">{prato.nome}</p>
             </div>
           ))}
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

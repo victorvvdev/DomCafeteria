@@ -1,32 +1,41 @@
 import { useState } from "react";
+import "../../styles/Cardapio.css";
 import CardPrato from "../../components/CardPrato";
 import { getPratos, getLinkCardapio } from "../../services/cardapioService";
 
 export default function Cardapio() {
-  const [pratos] = useState(getPratos);
+  const [pratos] = useState(getPratos());
   const linkCardapio = getLinkCardapio();
 
   return (
-    <div className="container py-4">
-      <div className="text-center mb-4">
+    <main className="cardapio-container">
+      <section className="cardapio-banner">
+        <div className="banner-overlay">
+          <h1>Nosso Cardápio</h1>
+          <p>
+            Descubra nossasdelícias preparadas com ingredientes frescos e muito carinho.
+          </p>
+        </div>
+      </section>
+
+      <div className="cardapio-link-container">
         <a
           href={linkCardapio}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-custom"
-          style={{ padding: "8px 28px", borderRadius: "20px", fontSize: "15px", textDecoration: "none", display: "inline-block" }}
+          className="cardapio-link-btn"
         >
           Abrir cardápio completo
         </a>
       </div>
 
-      <div className="row g-4">
+      <div className="cardapio-grid">
         {pratos.map((prato) => (
-          <div key={prato.id} className="col-12 col-sm-6 col-lg-4">
+          <div key={prato.id}>
             <CardPrato prato={prato} />
           </div>
         ))}
       </div>
-    </div>
+    </main>
   );
 }

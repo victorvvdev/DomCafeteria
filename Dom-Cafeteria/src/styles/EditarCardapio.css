@@ -1,5 +1,50 @@
-.editar-cardapio-page {
-  min-height: 100vh;
+.editar-cardapio-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 45px 24px 90px;
+}
+
+.editar-cardapio-banner {
+  min-height: 270px;
+  border-radius: 28px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../../assets/banner-cardapio.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  margin-bottom: 45px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-overlay {
+  text-align: center;
+  padding: 40px;
+}
+
+.banner-overlay h1 {
+  font-size: 46px;
+  margin-bottom: 14px;
+  color: var(--light);
+}
+
+.banner-overlay p {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #fff5df;
+}
+
+.editar-cardapio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .editar-cardapio-topo {
@@ -7,12 +52,15 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-bottom: 28px;
+  background-color: var(--primary);
+  border-radius: 24px;
+  padding: 24px 34px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
 }
 
 .editar-cardapio-acoes {
   position: absolute;
-  left: 0;
+  left: 34px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -21,11 +69,14 @@
 .btn-acao-topo {
   background: none;
   border: none;
-  color: var(--creme);
+  color: var(--light);
   font-size: 20px;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
   transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-acao-topo:hover {
@@ -36,19 +87,19 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 28px;
+  padding: 12px 28px;
   border-radius: 20px;
   font-size: 15px;
   text-decoration: none;
-  border: 1px solid var(--creme);
-  color: var(--creme);
+  border: 1px solid var(--light);
+  color: var(--light);
   background: transparent;
   transition: 0.3s;
 }
 
 .btn-cardapio-completo:hover {
-  background-color: var(--creme);
-  color: var(--marrom);
+  background-color: var(--light);
+  color: var(--dark);
 }
 
 .btn-editar-link {
@@ -60,10 +111,18 @@
   padding: 0;
   line-height: 1;
   transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
 }
 
 .btn-editar-link:hover {
   opacity: 0.7;
+}
+
+.editar-cardapio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
 }
 
 .card-prato-editar {
@@ -78,8 +137,8 @@
   aspect-ratio: 4/3;
   border-radius: 16px;
   overflow: hidden;
-  border: 2px solid var(--marrom);
-  background-color: var(--creme);
+  border: 2px solid var(--light);
+  background-color: var(--primary);
   position: relative;
 }
 
@@ -94,33 +153,62 @@
   position: absolute;
   top: 8px;
   left: 8px;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
-  accent-color: var(--marrom);
+  accent-color: var(--secondary);
 }
 
 .btn-editar-card {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: none;
+  background-color: var(--secondary);
   border: none;
-  color: var(--marrom-escuro);
-  font-size: 18px;
+  color: var(--light);
+  font-size: 14px;
   cursor: pointer;
-  padding: 2px;
-  transition: opacity 0.2s;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s;
 }
 
 .btn-editar-card:hover {
-  opacity: 0.7;
+  background-color: var(--primary);
 }
 
 .card-prato-nome {
   margin-top: 10px;
-  color: var(--creme);
+  color: var(--light);
   font-size: 15px;
   font-weight: 500;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .editar-cardapio-banner {
+    min-height: 200px;
+    border-radius: 20px;
+  }
+  
+  .banner-overlay h1 {
+    font-size: 32px;
+  }
+  
+  .editar-cardapio-container {
+    padding: 24px 16px 60px;
+  }
+  
+  .editar-cardapio-topo {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .editar-cardapio-acoes {
+    position: static;
+  }
+  
+  .editar-cardapio-grid {
+    grid-template-columns: 1fr;
+  }
 }
