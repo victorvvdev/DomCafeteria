@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPratos, setPratos } from "../../services/cardapioService";
+import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
 import "../../styles/EditarPrato.css";
 
 export default function EditarPrato() {
@@ -50,17 +51,24 @@ export default function EditarPrato() {
   }
 
   return (
-    <div className="editar-prato-page">
-      <input
-        ref={inputFotoRef}
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }}
-        onChange={handleFotoChange}
-      />
+    <main className="editar-prato-container">
+      <section className="editar-prato-banner">
+        <div className="banner-overlay">
+          <h1>{isEdicao ? "Editar Prato" : "Adicionar Prato"}</h1>
+          <p>{isEdicao ? "Atualize as informações do prato." : "Adicione um novo prato ao cardápio."}</p>
+        </div>
+      </section>
 
-      <div className="container py-4">
-        <div className="editar-prato-content">
+      <section className="editar-prato-content">
+        <div className="editar-prato-form">
+          <input
+            ref={inputFotoRef}
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleFotoChange}
+          />
+
           <div className="editar-prato-foto-wrapper">
             {preview ? (
               <img src={preview} alt="foto do prato" />
@@ -68,7 +76,7 @@ export default function EditarPrato() {
               <span className="editar-prato-foto-placeholder">foto do prato...</span>
             )}
             <button className="btn-editar-foto" onClick={() => inputFotoRef.current.click()}>
-              ✎
+              <FaEdit />
             </button>
           </div>
 
@@ -80,15 +88,17 @@ export default function EditarPrato() {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
             />
-            <button className="btn-custom" onClick={handleSalvar}>
-              Salvar
-            </button>
-            <button className="btn-custom" onClick={handleCancelar}>
-              Cancelar
-            </button>
+            <div className="editar-prato-acoes">
+              <button className="btn-custom" onClick={handleSalvar}>
+                <FaSave /> Salvar
+              </button>
+              <button className="btn-custom" onClick={handleCancelar}>
+                <FaTimes /> Cancelar
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

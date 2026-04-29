@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getLinkCardapio, setLinkCardapio } from "../../services/cardapioService";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import "../../styles/EditarLinkCardapio.css";
 
 function isLinkValido(link) {
@@ -46,8 +47,15 @@ export default function EditarLinkCardapio() {
   }
 
   return (
-    <div className="editar-link-page">
-      <div className="container py-4">
+    <main className="editar-link-container">
+      <section className="editar-link-banner">
+        <div className="banner-overlay">
+          <h1>Editar Link do Cardápio</h1>
+          <p>Atualize o link externo do seu cardápio.</p>
+        </div>
+      </section>
+
+      <section className="editar-link-content">
         <div className="editar-link-form">
           <input
             className="editar-link-input"
@@ -70,14 +78,14 @@ export default function EditarLinkCardapio() {
 
           <div className="editar-link-acoes">
             <button className="btn-custom" onClick={handleAlterar}>
-              Alterar
+              <FaEdit /> Alterar
             </button>
             <button className="btn-custom" onClick={handleRemover}>
-              Remover
+              <FaTrash /> Remover
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

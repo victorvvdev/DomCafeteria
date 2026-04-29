@@ -1,5 +1,51 @@
-.editar-link-page {
-  min-height: 100vh;
+.editar-link-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 45px 24px 90px;
+}
+
+.editar-link-banner {
+  min-height: 270px;
+  border-radius: 28px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url("../../assets/banner-cardapio.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  margin-bottom: 45px;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-overlay {
+  text-align: center;
+  padding: 40px;
+}
+
+.banner-overlay h1 {
+  font-size: 46px;
+  margin-bottom: 14px;
+  color: var(--light);
+}
+
+.banner-overlay p {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #fff5df;
+}
+
+.editar-link-content {
+  background-color: var(--primary);
+  border-radius: 24px;
+  padding: 34px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
 }
 
 .editar-link-form {
@@ -14,25 +60,29 @@
   width: 100%;
   padding: 12px 20px;
   border-radius: 20px;
-  border: 1px solid var(--creme);
+  border: 1px solid var(--light);
   background: transparent;
-  color: var(--creme);
+  color: var(--light);
   font-size: 15px;
   outline: none;
 }
 
 .editar-link-input::placeholder {
-  color: var(--creme);
+  color: var(--light);
   opacity: 0.6;
 }
 
+.editar-link-input:disabled {
+  opacity: 0.5;
+}
+
 .editar-link-input:focus {
-  border-color: var(--marrom);
+  border-color: var(--secondary);
 }
 
 .editar-link-mensagem {
   text-align: center;
-  color: var(--creme);
+  color: var(--light);
   font-size: 14px;
   margin: 0;
 }
@@ -42,4 +92,29 @@
   justify-content: center;
   gap: 16px;
   margin-top: 8px;
+}
+
+.editar-link-acoes .btn-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .editar-link-banner {
+    min-height: 200px;
+    border-radius: 20px;
+  }
+  
+  .banner-overlay h1 {
+    font-size: 32px;
+  }
+  
+  .editar-link-container {
+    padding: 24px 16px 60px;
+  }
+  
+  .editar-link-acoes {
+    flex-direction: column;
+  }
 }

@@ -1,0 +1,99 @@
+:root {
+  --bg: #5C3F3C;
+  --primary: #8C5A3C;
+  --secondary: #C08552;
+  --light: #F1E5C8;
+  --dark: #3b2a28;
+}
+
+.cardapio-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 45px 24px 90px;
+}
+
+.cardapio-banner {
+  min-height: 270px;
+  border-radius: 28px;
+  background: 
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("../../assets/banner-cardapio.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  margin-bottom: 45px;
+  overflow: hidden;
+}
+
+.cardapio-banner .banner-overlay {
+  text-align: center;
+  padding: 40px;
+}
+
+.cardapio-banner h1 {
+  font-size: 46px;
+  margin-bottom: 14px;
+  color: var(--light);
+}
+
+.cardapio-banner p {
+  max-width: 650px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #fff5df;
+}
+
+.cardapio-link-container {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.cardapio-link-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  background-color: var(--secondary);
+  color: var(--light);
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cardapio-link-btn:hover {
+  background-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.cardapio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .cardapio-banner {
+    min-height: 200px;
+    border-radius: 20px;
+  }
+  
+  .cardapio-banner h1 {
+    font-size: 32px;
+  }
+  
+  .cardapio-container {
+    padding: 24px 16px 60px;
+  }
+  
+  .cardapio-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
