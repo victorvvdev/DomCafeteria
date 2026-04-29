@@ -5,6 +5,7 @@ import "./InfosPessoais.css";
 function InfosPessoais() {
   const navigate = useNavigate();
   const [dados, setDados] = useState({ nome: "", telefone: "", email: "" });
+  const [valorOriginal, setValorOriginal] = useState("");
   const [editando, setEditando] = useState({ telefone: false, email: false });
   const [erros, setErros] = useState({ telefone: "", email: "" });
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -26,9 +27,9 @@ function InfosPessoais() {
     const { name, value } = e.target;
     setDados({ ...dados, [name]: value });
     if (name === "telefone") {
-      setErros({...erros, telefone: validarTelefone(value) ? "" : "O telefone informado é inválido"});
+      setErros({ ...erros, telefone: validarTelefone(value) ? "" : "O telefone informado é inválido" });
     } else if (name === "email") {
-      setErros({...erros, email: validarEmail(value) ? "" : "O email informado é inválido"});
+      setErros({ ...erros, email: validarEmail(value) ? "" : "O email informado é inválido" });
     }
   };
 
@@ -38,6 +39,7 @@ function InfosPessoais() {
       setCampoParaSalvar(campo);
       setMostrarModal(true);
     } else {
+      setValorOriginal(dados[campo]);
       setEditando({ ...editando, [campo]: true });
     }
   };
@@ -47,6 +49,13 @@ function InfosPessoais() {
     setMostrarModal(false);
     setAlertaSucesso(true);
     setTimeout(() => setAlertaSucesso(false), 3000);
+  };
+
+  const cancelarEdicao = () => {
+    setDados({ ...dados, [campoParaSalvar]: valorOriginal });
+    setErros({ ...erros, [campoParaSalvar]: "" });
+    setEditando({ ...editando, [campoParaSalvar]: false });
+    setMostrarModal(false);
   };
 
   return (
@@ -67,17 +76,17 @@ function InfosPessoais() {
               <div className="pessoal-field">
                 <label>Telefone</label>
                 <div className="input-group">
-                  <input 
-                    name="telefone" 
-                    value={dados.telefone} 
+                  <input
+                    name="telefone"
+                    value={dados.telefone}
                     onChange={handleChange}
                     readOnly={!editando.telefone}
-                    className={`pessoal-input ${editando.telefone ? "editing" : ""} ${erros.telefone ? "error" : ""}`} 
+                    className={`pessoal-input ${editando.telefone ? "editing" : ""} ${erros.telefone ? "error" : ""}`}
                   />
-                  <button 
-                    type="button" 
-                    className={editando.telefone ? "btn-save" : "btn-edit"} 
-                    onClick={() => handleAction("telefone")} 
+                  <button
+                    type="button"
+                    className={editando.telefone ? "btn-save" : "btn-edit"}
+                    onClick={() => handleAction("telefone")}
                     disabled={editando.telefone && !!erros.telefone}
                   >
                     {editando.telefone ? "✓" : "✎"}
@@ -89,17 +98,17 @@ function InfosPessoais() {
               <div className="pessoal-field">
                 <label>Email</label>
                 <div className="input-group">
-                  <input 
-                    name="email" 
-                    value={dados.email} 
+                  <input
+                    name="email"
+                    value={dados.email}
                     onChange={handleChange}
                     readOnly={!editando.email}
-                    className={`pessoal-input ${editando.email ? "editing" : ""} ${erros.email ? "error" : ""}`} 
+                    className={`pessoal-input ${editando.email ? "editing" : ""} ${erros.email ? "error" : ""}`}
                   />
-                  <button 
-                    type="button" 
-                    className={editando.email ? "btn-save" : "btn-edit"} 
-                    onClick={() => handleAction("email")} 
+                  <button
+                    type="button"
+                    className={editando.email ? "btn-save" : "btn-edit"}
+                    onClick={() => handleAction("email")}
                     disabled={editando.email && !!erros.email}
                   >
                     {editando.email ? "✓" : "✎"}
@@ -112,9 +121,9 @@ function InfosPessoais() {
                 <label>Senha</label>
                 <div className="input-group">
                   <input type="password" value="********" className="pessoal-input readonly" readOnly />
-                  <button 
-                    type="button" 
-                    className="btn-edit" 
+                  <button
+                    type="button"
+                    className="btn-edit"
                     onClick={() => navigate("/adm/infospessoais2")}
                   >
                     ✎
@@ -132,7 +141,7 @@ function InfosPessoais() {
             <p>Deseja salvar o novo {campoParaSalvar === "telefone" ? "Telefone" : "Email"}?</p>
             <div className="pessoal-modal-actions">
               <button className="btn-modal-confirm" onClick={confirmarSalvamento}>Salvar</button>
-              <button className="btn-modal-cancel" onClick={() => setMostrarModal(false)}>Cancelar</button>
+              <button className="btn-modal-cancel" onClick={cancelarEdicao}>Cancelar</button>
             </div>
           </div>
         </div>
