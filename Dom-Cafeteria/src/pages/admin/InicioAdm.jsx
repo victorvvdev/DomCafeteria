@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../admin/InicioAdm.css";
 
 function InicioAdm() {
+  const [faqAberto, setFaqAberto] = useState(false);
   const [editing, setEditing] = useState(null);
   const [textValues, setTextValues] = useState(() => {
     const savedData = localStorage.getItem("dadosInicio");
@@ -19,6 +20,8 @@ function InicioAdm() {
       ],
     };
   });
+
+  const toggleFaq = () => setFaqAberto(!faqAberto);
 
   const handleEditClick = (field) => setEditing(field);
 
@@ -125,41 +128,54 @@ function InicioAdm() {
         </div>
       </section>
 
-      <section className="inicio-faq container">
-        <h3>Perguntas Frequentes</h3>
-        {textValues.faqs.map((faq, index) => (
-          <div className="faq-item" key={index}>
-            <button 
-              className={editing === `faq-${index}` ? "btn-acao-confirmar" : "btn-acao-editar"} 
-              onClick={editing === `faq-${index}` ? handleConfirmClick : () => handleEditClick(`faq-${index}`)}
-            >
-              {editing === `faq-${index}` ? "✓" : "✎"}
-            </button>
+      {/* FAQ ADMINISTRATIVO RETRÁTIL */}
+      <section className={`inicio-faq container ${faqAberto ? "aberto" : "fechado"}`}>
+        <div className="faq-header-adm" onClick={toggleFaq}>
+          <div className="faq-spacer"></div>
+          <h3>Perguntas Frequentes</h3>
+          <button className={`botao-toggle-adm ${faqAberto ? "girar" : ""}`}>
+            <span className="seta-faq-adm"></span>
+          </button>
+        </div>
 
-            <div className="faq-header">
-              {editing === `faq-${index}` ? (
-                <textarea
-                  className="inicio-info-textarea"
-                  value={faq.pergunta}
-                  onChange={(e) => handleFaqChange(index, "pergunta", e.target.value)}
-                />
-              ) : (
-                <h4>{faq.pergunta}</h4>
-              )}
+        <div className="faq-conteudo-adm">
+          {textValues.faqs.map((faq, index) => (
+            <div className="faq-item" key={index}>
+              <button 
+                className={editing === `faq-${index}` ? "btn-acao-confirmar" : "btn-acao-editar"} 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  editing === `faq-${index}` ? handleConfirmClick() : handleEditClick(`faq-${index}`)
+                }}
+              >
+                {editing === `faq-${index}` ? "✓" : "✎"}
+              </button>
+
+              <div className="faq-pergunta-adm">
+                {editing === `faq-${index}` ? (
+                  <textarea
+                    className="inicio-info-textarea"
+                    value={faq.pergunta}
+                    onChange={(e) => handleFaqChange(index, "pergunta", e.target.value)}
+                  />
+                ) : (
+                  <h4>{faq.pergunta}</h4>
+                )}
+              </div>
+              <div className="faq-corpo-adm">
+                {editing === `faq-${index}` ? (
+                  <textarea
+                    className="inicio-info-textarea"
+                    value={faq.resposta}
+                    onChange={(e) => handleFaqChange(index, "resposta", e.target.value)}
+                  />
+                ) : (
+                  <p>{faq.resposta}</p>
+                )}
+              </div>
             </div>
-            <div className="faq-corpo">
-              {editing === `faq-${index}` ? (
-                <textarea
-                  className="inicio-info-textarea"
-                  value={faq.resposta}
-                  onChange={(e) => handleFaqChange(index, "resposta", e.target.value)}
-                />
-              ) : (
-                <p>{faq.resposta}</p>
-              )}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
     </main>
   );
