@@ -14,15 +14,23 @@ function InicioAdm() {
       horarioSabado: "Sábado: 8h às 12h",
       imagemUrl: "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
       faqs: [
-        { pergunta: "Vocês têm opções sem lactose?", resposta: "Sim, oferecemos diversas opções adaptadas para restrições alimentares." },
-        { pergunta: "O ambiente é adequado para trabalhar?", resposta: "Sim, temos um espaço tranquilo e confortável para estudos e trabalho." },
-        { pergunta: "É possível pedir para viagem?", resposta: "Sim, todos os produtos podem ser embalados para viagem." },
+        { 
+          pergunta: "Vocês têm opções sem lactose?", 
+          resposta: "Sim, oferecemos diversas opções adaptadas para restrições alimentares." 
+        },
+        { 
+          pergunta: "O ambiente é adequado para trabalhar?", 
+          resposta: "Sim, temos um espaço tranquilo e confortável para estudos e trabalho." 
+        },
+        { 
+          pergunta: "É possível pedir para viagem?", 
+          resposta: "Sim, todos os produtos podem ser embalados para viagem." 
+        },
       ],
     };
   });
 
   const toggleFaq = () => setFaqAberto(!faqAberto);
-
   const handleEditClick = (field) => setEditing(field);
 
   const handleConfirmClick = () => {
@@ -63,46 +71,52 @@ function InicioAdm() {
             {editing === "texto" ? "✓" : "✎"}
           </button>
 
-          <div className="inicio-destaque-container">
+          <div className="form-edicao-container">
             {editing === "texto" ? (
-              <textarea
-                className="inicio-destaque-textarea"
-                value={textValues.destaque}
-                onChange={(e) => handleTextChange(e, "destaque")}
-              />
-            ) : (
-              <p className="inicio-destaque">{textValues.destaque}</p>
-            )}
-          </div>
+              <div className="campos-edicao-texto">
+                <textarea
+                  className="inicio-destaque-textarea"
+                  value={textValues.destaque}
+                  onChange={(e) => handleTextChange(e, "destaque")}
+                />
+                
+                <textarea
+                  className="inicio-info-textarea"
+                  value={textValues.subtitulo}
+                  onChange={(e) => handleTextChange(e, "subtitulo")}
+                />
 
-          <div className="inicio-subtitulo">
-            {editing === "texto" ? (
-              <textarea
-                className="inicio-destaque-textarea"
-                value={textValues.subtitulo}
-                onChange={(e) => handleTextChange(e, "subtitulo")}
-              />
-            ) : (
-              <p>{textValues.subtitulo}</p>
-            )}
-          </div>
+                <div className="inicio-barra"></div>
 
-          <div className="inicio-barra"></div>
-
-          <div className="inicio-info-bloco">
-            {["endereco", "horarioSegSex", "horarioSabado"].map((field) => (
-              <div key={field} style={{ width: "100%" }}>
-                {editing === "texto" ? (
-                  <textarea
-                    className="inicio-info-textarea"
-                    value={textValues[field]}
-                    onChange={(e) => handleTextChange(e, field)}
-                  />
-                ) : (
-                  <p className="inicio-info">{textValues[field]}</p>
-                )}
+                <textarea
+                  className="inicio-info-textarea"
+                  value={textValues.endereco}
+                  onChange={(e) => handleTextChange(e, "endereco")}
+                />
+                
+                <textarea
+                  className="inicio-info-textarea small"
+                  value={textValues.horarioSegSex}
+                  onChange={(e) => handleTextChange(e, "horarioSegSex")}
+                />
+                <textarea
+                  className="inicio-info-textarea small"
+                  value={textValues.horarioSabado}
+                  onChange={(e) => handleTextChange(e, "horarioSabado")}
+                />
               </div>
-            ))}
+            ) : (
+              <>
+                <p className="inicio-destaque">{textValues.destaque}</p>
+                <p className="inicio-subtitulo-p">{textValues.subtitulo}</p>
+                <div className="inicio-barra"></div>
+                <div className="inicio-info-bloco">
+                  <p className="inicio-info">{textValues.endereco}</p>
+                  <p className="inicio-info">{textValues.horarioSegSex}</p>
+                  <p className="inicio-info">{textValues.horarioSabado}</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -116,11 +130,7 @@ function InicioAdm() {
 
           {editing === "imagem" ? (
             <div className="upload-container">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
+              <input type="file" accept="image/*" onChange={handleImageChange} />
             </div>
           ) : (
             <img src={textValues.imagemUrl} alt="Cafeteria" />
@@ -128,7 +138,6 @@ function InicioAdm() {
         </div>
       </section>
 
-      {/* FAQ ADMINISTRATIVO RETRÁTIL */}
       <section className={`inicio-faq container ${faqAberto ? "aberto" : "fechado"}`}>
         <div className="faq-header-adm" onClick={toggleFaq}>
           <div className="faq-spacer"></div>
@@ -151,26 +160,29 @@ function InicioAdm() {
                 {editing === `faq-${index}` ? "✓" : "✎"}
               </button>
 
-              <div className="faq-pergunta-adm">
+              <div className="faq-campos-container">
                 {editing === `faq-${index}` ? (
-                  <textarea
-                    className="inicio-info-textarea"
-                    value={faq.pergunta}
-                    onChange={(e) => handleFaqChange(index, "pergunta", e.target.value)}
-                  />
+                  <>
+                    <textarea
+                      className="inicio-info-textarea faq-edit"
+                      value={faq.pergunta}
+                      onChange={(e) => handleFaqChange(index, "pergunta", e.target.value)}
+                    />
+                    <textarea
+                      className="inicio-info-textarea faq-edit-resp"
+                      value={faq.resposta}
+                      onChange={(e) => handleFaqChange(index, "resposta", e.target.value)}
+                    />
+                  </>
                 ) : (
-                  <h4>{faq.pergunta}</h4>
-                )}
-              </div>
-              <div className="faq-corpo-adm">
-                {editing === `faq-${index}` ? (
-                  <textarea
-                    className="inicio-info-textarea"
-                    value={faq.resposta}
-                    onChange={(e) => handleFaqChange(index, "resposta", e.target.value)}
-                  />
-                ) : (
-                  <p>{faq.resposta}</p>
+                  <>
+                    <div className="faq-pergunta-adm">
+                      <h4>{faq.pergunta}</h4>
+                    </div>
+                    <div className="faq-corpo-adm">
+                      <p>{faq.resposta}</p>
+                    </div>
+                  </>
                 )}
               </div>
             </div>
