@@ -16,7 +16,7 @@ export function setPratos(pratos) {
 }
 
 export function getLinkCardapio() {
-  return localStorage.getItem("linkCardapio") || "#";
+  return localStorage.getItem("linkCardapio") || "https://drive.google.com/file/d/1rIym6vperbkwwOnIMKr_FFJjQHg6M9Bz/view?usp=drivesdk";
 }
 
 export function setLinkCardapio(link) {
