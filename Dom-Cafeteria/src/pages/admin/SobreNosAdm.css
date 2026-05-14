@@ -154,6 +154,46 @@
   font-size: 1.25rem;
 }
 
+.adm-campo-edicao-historia {
+  width: 100%;
+  min-height: 420px;
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid #c9ab8c;
+  background-color: #f7ecd6;
+  color: #4a2f21;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.8;
+  resize: vertical;
+  outline: none;
+}
+
+.adm-campo-edicao-historia:focus {
+  border-color: #a77b59;
+  box-shadow: 0 0 0 3px rgba(201, 171, 140, 0.25);
+}
+
+.adm-campo-edicao-historia::placeholder {
+  color: #8b6a55;
+}
+
+.adm-historia-formatada p {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #f7ecd6;
+  margin-bottom: 24px;
+}
+
+.adm-historia-formatada p:last-child {
+  margin-bottom: 0;
+}
+
+.adm-historia-formatada strong {
+  font-weight: 700;
+  color: #fff2d8;
+}
+
 /* Responsividade */
 @media (max-width: 992px) {
   .adm-sobre-cards {
