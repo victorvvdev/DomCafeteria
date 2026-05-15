@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { getLinkCardapio, setLinkCardapio } from "../../services/cardapioService";
+import { useState, useEffect } from "react";
+import { getLinkCardapio, updateLinkCardapio, removeLinkCardapio } from "../../services/cardapioService";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "../../styles/EditarLinkCardapio.css";
 
@@ -13,11 +13,19 @@ function isLinkValido(link) {
 }
 
 export default function EditarLinkCardapio() {
-  const [linkAtual, setLinkAtual] = useState(getLinkCardapio);
+  const [linkAtual, setLinkAtual] = useState(null);
   const [novoLink, setNovoLink] = useState("");
   const [mensagem, setMensagem] = useState(null);
+  const [carregando, setCarregando] = useState(true);
 
-  function handleAlterar() {
+  useEffect(() => {
+    getLinkCardapio()
+      .then((dados) => setLinkAtual(dados?.link || null))
+      .catch(() => setLinkAtual(null))
+      .finally(() => setCarregando(false));
+  }, []);
+
+  async function handleAlterar() {
     if (!novoLink.trim()) {
       setMensagem('O campo "Novo link" está vazio.');
       return;
@@ -30,20 +38,28 @@ export default function EditarLinkCardapio() {
       setMensagem("Os links estão iguais.");
       return;
     }
-    setLinkCardapio(novoLink);
-    setLinkAtual(novoLink);
-    setNovoLink("");
-    setMensagem("Link alterado com sucesso.");
+    try {
+      await updateLinkCardapio(novoLink);
+      setLinkAtual(novoLink);
+      setNovoLink("");
+      setMensagem("Link alterado com sucesso.");
+    } catch {
+      setMensagem("Erro ao alterar o link.");
+    }
   }
 
-  function handleRemover() {
-    if (!linkAtual || linkAtual === "#") {
+  async function handleRemover() {
+    if (!linkAtual) {
       setMensagem("Não existe um link atual para remover.");
       return;
     }
-    setLinkCardapio("#");
-    setLinkAtual("#");
-    setMensagem("Link removido com sucesso.");
+    try {
+      await removeLinkCardapio();
+      setLinkAtual(null);
+      setMensagem("Link removido com sucesso.");
+    } catch {
+      setMensagem("Erro ao remover o link.");
+    }
   }
 
   return (
@@ -60,7 +76,7 @@ export default function EditarLinkCardapio() {
           <input
             className="editar-link-input"
             type="text"
-            placeholder={`Link atual: ${linkAtual === "#" ? "nenhum" : linkAtual}`}
+            placeholder={carregando ? "Carregando..." : `Link atual: ${linkAtual || "nenhum"}`}
             disabled
           />
 
@@ -72,9 +88,7 @@ export default function EditarLinkCardapio() {
             onChange={(e) => setNovoLink(e.target.value)}
           />
 
-          {mensagem && (
-            <p className="editar-link-mensagem">{mensagem}</p>
-          )}
+          {mensagem && <p className="editar-link-mensagem">{mensagem}</p>}
 
           <div className="editar-link-acoes">
             <button className="btn-custom" onClick={handleAlterar}>

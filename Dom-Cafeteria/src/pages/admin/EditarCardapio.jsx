@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getPratos, setPratos, getLinkCardapio } from "../../services/cardapioService";
+import { getPratos, deletePrato, getLinkCardapio } from "../../services/cardapioService";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import "../../styles/EditarCardapio.css";
 
 export default function EditarCardapio() {
   const navigate = useNavigate();
-  const [pratos, setPratosState] = useState(getPratos);
+  const [pratos, setPratosState] = useState([]);
   const [selecionados, setSelecionados] = useState([]);
-  const linkCardapio = getLinkCardapio();
+  const [linkCardapio, setLinkCardapio] = useState("#");
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
+
+  useEffect(() => {
+    Promise.all([getPratos(), getLinkCardapio()])
+      .then(([dadosPratos, dadosLink]) => {
+        setPratosState(dadosPratos);
+        setLinkCardapio(dadosLink?.link || "#");
+      })
+      .catch(() => setErro("Não foi possível carregar os dados."))
+      .finally(() => setCarregando(false));
+  }, []);
 
   function handleSelecionar(id) {
     setSelecionados((prev) =>
@@ -16,12 +28,15 @@ export default function EditarCardapio() {
     );
   }
 
-  function handleRemoverSelecionados() {
+  async function handleRemoverSelecionados() {
     if (selecionados.length === 0) return;
-    const novos = pratos.filter((p) => !selecionados.includes(p.id));
-    setPratos(novos);
-    setPratosState(novos);
-    setSelecionados([]);
+    try {
+      await Promise.all(selecionados.map((id) => deletePrato(id)));
+      setPratosState((prev) => prev.filter((p) => !selecionados.includes(p.idPrato)));
+      setSelecionados([]);
+    } catch {
+      setErro("Erro ao remover pratos.");
+    }
   }
 
   return (
@@ -63,27 +78,50 @@ export default function EditarCardapio() {
           </a>
         </div>
 
-        <div className="editar-cardapio-grid">
-          {pratos.map((prato) => (
-            <div key={prato.id} className="card-prato-editar">
-              <div className="card-prato-editar-img-wrapper">
-                <input
-                  type="checkbox"
-                  className="card-checkbox"
-                  checked={selecionados.includes(prato.id)}
-                  onChange={() => handleSelecionar(prato.id)}
-                />
-                <button
-                  className="btn-editar-card"
-                  onClick={() => navigate(`/adm/EditarPrato/${prato.id}`)}
-                >
-                  <FaEdit />
-                </button>
-              </div>
-              <p className="card-prato-nome">{prato.nome}</p>
+        {carregando && (
+          <div className="text-center py-5">
+            <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
+              <span className="visually-hidden">Carregando...</span>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
+
+        {erro && <p className="text-center" style={{ color: "var(--light)" }}>{erro}</p>}
+
+        {!carregando && !erro && (
+          <div className="editar-cardapio-grid">
+            {pratos.map((prato) => {
+              const imagemSrc = prato.foto_url
+                ? `data:image/jpeg;base64,${prato.foto_url}`
+                : null;
+
+              return (
+                <div key={prato.idPrato} className="card-prato-editar">
+                  <div className="card-prato-editar-img-wrapper">
+                    {imagemSrc ? (
+                      <img src={imagemSrc} alt={prato.nome} />
+                    ) : (
+                      <span style={{ color: "var(--light)", opacity: 0.5, fontSize: "14px" }}>imagem aqui...</span>
+                    )}
+                    <input
+                      type="checkbox"
+                      className="card-checkbox"
+                      checked={selecionados.includes(prato.idPrato)}
+                      onChange={() => handleSelecionar(prato.idPrato)}
+                    />
+                    <button
+                      className="btn-editar-card"
+                      onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
+                    >
+                      <FaEdit />
+                    </button>
+                  </div>
+                  <p className="card-prato-nome">{prato.nome}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
     </main>
   );
