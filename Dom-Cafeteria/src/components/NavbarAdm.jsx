@@ -22,9 +22,9 @@ function NavbarAdm() {
       </div>
 
       <div className="nav-buttons d-flex align-items-center" style={{ position: "relative" }}>
-        <Link className="btn-custom me-2" to="/">Início</Link>
-        <Link className="btn-custom me-2" to="/cardapio">Cardápio</Link>
-        <Link className="btn-custom me-2" to="/sobre">Sobre Nós</Link>
+        <Link className="btn-custom me-2" to="/adm/inicioadm">Início</Link>
+        <Link className="btn-custom me-2" to="/adm/Cardapio">Cardápio</Link>
+        <Link className="btn-custom me-2" to="/adm/sobrenos">Sobre Nós</Link>
         <Link className="btn-custom me-3" to="/adm/contato">Contato</Link>
 
         <button
