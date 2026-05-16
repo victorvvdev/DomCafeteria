@@ -2,11 +2,15 @@ import React from "react";
 import "../styles/CardPrato.css";
 
 function CardPrato({ prato }) {
+  const imagemSrc = prato.foto_url
+    ? `data:image/jpeg;base64,${prato.foto_url}`
+    : null;
+
   return (
     <div className="card-prato">
       <div className="card-prato-img-wrapper">
-        {prato.imagem_url && prato.imagem_url !== "" ? (
-          <img src={prato.imagem_url} alt={prato.nome} />
+        {imagemSrc ? (
+          <img src={imagemSrc} alt={prato.nome} />
         ) : (
           <span className="card-prato-img-placeholder">imagem aqui...</span>
         )}

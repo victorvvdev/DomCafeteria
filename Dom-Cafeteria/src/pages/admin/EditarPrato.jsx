@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getPratos, setPratos } from "../../services/cardapioService";
+import { getPratos, createPrato, updatePrato } from "../../services/cardapioService";
 import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
 import "../../styles/EditarPrato.css";
 
@@ -12,38 +12,51 @@ export default function EditarPrato() {
 
   const [nome, setNome] = useState("");
   const [preview, setPreview] = useState(null);
+  const [fotoBase64, setFotoBase64] = useState(null);
+  const [carregando, setCarregando] = useState(isEdicao);
+  const [erro, setErro] = useState(null);
 
   useEffect(() => {
     if (!isEdicao) return;
-    const pratos = getPratos();
-    const prato = pratos.find((p) => String(p.id) === String(id));
-    if (prato) {
-      setNome(prato.nome);
-      setPreview(prato.imagem_url || null);
-    }
+    getPratos()
+      .then((pratos) => {
+        const prato = pratos.find((p) => String(p.idPrato) === String(id));
+        if (prato) {
+          setNome(prato.nome);
+          if (prato.foto_url) {
+            setPreview(`data:image/jpeg;base64,${prato.foto_url}`);
+            setFotoBase64(prato.foto_url);
+          }
+        }
+      })
+      .catch(() => setErro("Erro ao carregar prato."))
+      .finally(() => setCarregando(false));
   }, [id]);
 
   function handleFotoChange(e) {
     const file = e.target.files[0];
     if (!file) return;
+
     const reader = new FileReader();
-    reader.onload = () => setPreview(reader.result);
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      setPreview(dataUrl);
+      setFotoBase64(dataUrl.split(",")[1]);
+    };
     reader.readAsDataURL(file);
   }
 
-  function handleSalvar() {
-    const pratos = getPratos();
-    if (isEdicao) {
-      const atualizados = pratos.map((p) =>
-        String(p.id) === String(id) ? { ...p, nome, imagem_url: preview } : p
-      );
-      setPratos(atualizados);
-    } else {
-      const novoId = Date.now();
-      const novo = { id: novoId, nome, imagem_url: preview };
-      setPratos([...pratos, novo]);
+  async function handleSalvar() {
+    try {
+      if (isEdicao) {
+        await updatePrato(id, nome, fotoBase64);
+      } else {
+        await createPrato(nome, fotoBase64);
+      }
+      navigate(-1);
+    } catch {
+      setErro("Erro ao salvar prato.");
     }
-    navigate(-1);
   }
 
   function handleCancelar() {
@@ -52,52 +65,59 @@ export default function EditarPrato() {
 
   return (
     <main className="editar-prato-container">
+      <input
+        ref={inputFotoRef}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={handleFotoChange}
+      />
       <section className="editar-prato-banner">
         <div className="banner-overlay">
           <h1>{isEdicao ? "Editar Prato" : "Adicionar Prato"}</h1>
           <p>{isEdicao ? "Atualize as informações do prato." : "Adicione um novo prato ao cardápio."}</p>
         </div>
       </section>
-
       <section className="editar-prato-content">
-        <div className="editar-prato-form">
-          <input
-            ref={inputFotoRef}
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={handleFotoChange}
-          />
-
-          <div className="editar-prato-foto-wrapper">
-            {preview ? (
-              <img src={preview} alt="foto do prato" />
-            ) : (
-              <span className="editar-prato-foto-placeholder">foto do prato...</span>
-            )}
-            <button className="btn-editar-foto" onClick={() => inputFotoRef.current.click()}>
-              <FaEdit />
-            </button>
-          </div>
-
-          <div className="editar-prato-campos">
-            <input
-              className="editar-prato-input"
-              type="text"
-              placeholder="nome do prato: *****"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-            />
-            <div className="editar-prato-acoes">
-              <button className="btn-custom" onClick={handleSalvar}>
-                <FaSave /> Salvar
-              </button>
-              <button className="btn-custom" onClick={handleCancelar}>
-                <FaTimes /> Cancelar
-              </button>
+        {carregando && (
+          <div className="text-center py-5">
+            <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
+              <span className="visually-hidden">Carregando...</span>
             </div>
           </div>
-        </div>
+        )}
+        {erro && <p className="text-center" style={{ color: "var(--light)" }}>{erro}</p>}
+        {!carregando && (
+          <div className="editar-prato-form">
+            <div className="editar-prato-foto-wrapper">
+              {preview ? (
+                <img src={preview} alt="foto do prato" />
+              ) : (
+                <span className="editar-prato-foto-placeholder">foto do prato...</span>
+              )}
+              <button className="btn-editar-foto" onClick={() => inputFotoRef.current.click()}>
+                <FaEdit />
+              </button>
+            </div>
+            <div className="editar-prato-campos">
+              <input
+                className="editar-prato-input"
+                type="text"
+                placeholder="nome do prato: *****"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+              <div className="editar-prato-acoes">
+                <button className="btn-custom" onClick={handleSalvar}>
+                  <FaSave /> Salvar
+                </button>
+                <button className="btn-custom" onClick={handleCancelar}>
+                  <FaTimes /> Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </main>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CardPrato from "../../components/CardPrato";
 import { getPratos, getLinkCardapio } from "../../services/cardapioService";
@@ -6,9 +6,38 @@ import { FaEdit } from "react-icons/fa";
 import "../../styles/CardapioAdmin.css";
 
 export default function CardapioAdm() {
-  const navigate = useNavigate(); 
-  const [pratos] = useState(getPratos());
-  const linkCardapio = getLinkCardapio();
+  const navigate = useNavigate();
+  const [pratos, setPratos] = useState([]);
+  const [linkCardapio, setLinkCardapio] = useState("#");
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
+
+  useEffect(() => {
+    let ativo = true;
+
+    getPratos()
+      .then((dadosPratos) => {
+        if (ativo) setPratos(dadosPratos);
+      })
+      .catch(() => {
+        if (ativo) setErro("Não foi possível carregar os pratos.");
+      })
+      .finally(() => {
+        if (ativo) setCarregando(false);
+      });
+
+    getLinkCardapio()
+      .then((dadosLink) => {
+        if (ativo) setLinkCardapio(dadosLink?.link || "#");
+      })
+      .catch(() => {
+        if (ativo) setLinkCardapio("#");
+      });
+
+    return () => {
+      ativo = false;
+    };
+  }, []);
 
   return (
     <main className="cardapio-adm-container">
@@ -43,19 +72,29 @@ export default function CardapioAdm() {
           </button>
         </div>
 
-        <div className="cardapio-grid">
-          {pratos.map((prato) => (
-            <div key={prato.id} className="cardapio-item">
-              <CardPrato prato={prato} />
-              <button 
-                className="btn-editar-item"
-                onClick={() => navigate(`/adm/EditarPrato/${prato.id}`)}
-              >
-                <FaEdit />
-              </button>
+        {carregando ? (
+          <div className="text-center py-5">
+            <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
+              <span className="visually-hidden">Carregando...</span>
             </div>
-          ))}
-        </div>
+          </div>
+        ) : erro ? (
+          <p className="text-center" style={{ color: "var(--light)" }}>{erro}</p>
+        ) : (
+          <div className="cardapio-grid">
+            {pratos.map((prato) => (
+              <div key={prato.id} className="cardapio-item">
+                <CardPrato prato={prato} />
+                <button 
+                  className="btn-editar-item"
+                  onClick={() => navigate(`/adm/EditarPrato/${prato.id}`)}
+                >
+                  <FaEdit />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );
