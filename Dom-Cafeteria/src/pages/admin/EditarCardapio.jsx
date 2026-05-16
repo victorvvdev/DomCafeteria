@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPratos, deletePrato, getLinkCardapio } from "../../services/cardapioService";
+import { base64ParaSrc } from "../../utils/imageDisplay";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import "../../styles/EditarCardapio.css";
 
@@ -90,36 +91,30 @@ export default function EditarCardapio() {
 
         {!carregando && !erro && (
           <div className="editar-cardapio-grid">
-            {pratos.map((prato) => {
-              const imagemSrc = prato.foto_url
-                ? `data:image/jpeg;base64,${prato.foto_url}`
-                : null;
-
-              return (
-                <div key={prato.idPrato} className="card-prato-editar">
-                  <div className="card-prato-editar-img-wrapper">
-                    {imagemSrc ? (
-                      <img src={imagemSrc} alt={prato.nome} />
-                    ) : (
-                      <span style={{ color: "var(--light)", opacity: 0.5, fontSize: "14px" }}>imagem aqui...</span>
-                    )}
-                    <input
-                      type="checkbox"
-                      className="card-checkbox"
-                      checked={selecionados.includes(prato.idPrato)}
-                      onChange={() => handleSelecionar(prato.idPrato)}
-                    />
-                    <button
-                      className="btn-editar-card"
-                      onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
-                    >
-                      <FaEdit />
-                    </button>
-                  </div>
-                  <p className="card-prato-nome">{prato.nome}</p>
+            {pratos.map((prato) => (
+              <div key={prato.idPrato} className="card-prato-editar">
+                <div className="card-prato-editar-img-wrapper">
+                  {base64ParaSrc(prato.foto_url) ? (
+                    <img src={base64ParaSrc(prato.foto_url)} alt={prato.nome} />
+                  ) : (
+                    <span style={{ color: "var(--light)", opacity: 0.5, fontSize: "14px" }}>imagem aqui...</span>
+                  )}
+                  <input
+                    type="checkbox"
+                    className="card-checkbox"
+                    checked={selecionados.includes(prato.idPrato)}
+                    onChange={() => handleSelecionar(prato.idPrato)}
+                  />
+                  <button
+                    className="btn-editar-card"
+                    onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
+                  >
+                    <FaEdit />
+                  </button>
                 </div>
-              );
-            })}
+                <p className="card-prato-nome">{prato.nome}</p>
+              </div>
+            ))}
           </div>
         )}
       </section>
