@@ -61,7 +61,6 @@ function NavbarAdm() {
 
           {menuAberto && (
             <div
-              
               style={{
                 position: "absolute",
                 top: "65px",
@@ -93,11 +92,12 @@ function NavbarAdm() {
                 to="/adm/infospessoais"
                 style={{
                   display: "block",
-                  border: "2px solid #3b2a28",
+                  backgroundColor: "#8C5A3C",
+                  border: "2px solid #8C5A3C",
                   borderRadius: "14px",
                   padding: "16px",
                   textAlign: "center",
-                  color: "#3b2a28",
+                  color: "#ffffff",
                   textDecoration: "none",
                   marginBottom: "28px",
                   fontWeight: "600",
@@ -110,11 +110,12 @@ function NavbarAdm() {
                 to="/adm/adicionar"
                 style={{
                   display: "block",
-                  border: "2px solid #3b2a28",
+                  backgroundColor: "#8C5A3C",
+                  border: "2px solid #8C5A3C",
                   borderRadius: "14px",
                   padding: "16px",
                   textAlign: "center",
-                  color: "#3b2a28",
+                  color: "#ffffff",
                   textDecoration: "none",
                   marginBottom: "90px",
                   fontWeight: "600",
