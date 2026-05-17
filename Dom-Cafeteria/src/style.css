@@ -45,13 +45,24 @@ html, body, #root {
 }
 
 .btn-custom:hover,
-.btn-custom:focus,
-.btn-custom:active {
+.btn-custom:focus {
   background-color: var(--creme) !important;
   color: var(--marrom) !important;
   border: 1px solid var(--creme) !important;
   box-shadow: none !important;
   outline: none !important;
+}
+
+.btn-custom.active {
+  background-color: var(--creme) !important;
+  color: var(--marrom) !important;
+  border: 1px solid var(--creme) !important;
+}
+
+.btn-custom.active:hover,
+.btn-custom.active:focus {
+  background-color: var(--creme) !important;
+  color: var(--marrom) !important;
 }
 
 /* LISTA */

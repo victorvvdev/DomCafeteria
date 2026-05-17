@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
 import logo from "../assets/logo.svg";
 
@@ -37,10 +37,10 @@ function NavbarAdm() {
       </div>
 
       <div className="nav-buttons d-flex align-items-center" style={{ position: "relative" }}>
-        <Link className="btn-custom me-2" to="/adm/inicioadm">Início</Link>
-        <Link className="btn-custom me-2" to="/adm/Cardapio">Cardápio</Link>
-        <Link className="btn-custom me-2" to="/adm/sobrenos">Sobre Nós</Link>
-        <Link className="btn-custom me-3" to="/adm/contato">Contato</Link>
+        <NavLink className="btn-custom me-2" to="/adm/inicioadm">Início</NavLink>
+        <NavLink className="btn-custom me-2" to="/adm/Cardapio">Cardápio</NavLink>
+        <NavLink className="btn-custom me-2" to="/adm/sobrenos">Sobre Nós</NavLink>
+        <NavLink className="btn-custom me-3" to="/adm/contato">Contato</NavLink>
 
         <div ref={menuRef} style={{ position: "relative"}}>
           <button
