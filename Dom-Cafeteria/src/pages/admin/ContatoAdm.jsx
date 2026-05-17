@@ -34,7 +34,6 @@ function ContatoAdm() {
               para falar com nossa equipe.
             </p>
 
-            {/* Card WhatsApp */}
             <div className="info-card-adm-posicionado">
               <span className="info-icon">
                 <FaWhatsapp />
@@ -50,7 +49,6 @@ function ContatoAdm() {
               </button>
             </div>
 
-            {/* Card Instagram */}
             <div className="info-card-adm-posicionado">
               <span className="info-icon">
                 <FaInstagram />
@@ -58,7 +56,7 @@ function ContatoAdm() {
 
               <div>
                 <h3>Instagram</h3>
-                <p>@dom.cafeteria</p>
+                <a href="https://www.instagram.com/dom.cafeteria/" target="_blank">@dom.cafeteria</a>
               </div>
 
               <button className="btn-editar-absoluto card-contato-edit">
@@ -66,7 +64,6 @@ function ContatoAdm() {
               </button>
             </div>
 
-            {/* Card Localização */}
             <div className="info-card-adm-posicionado">
               <span className="info-icon">
                 <FaMapMarkerAlt />
@@ -74,7 +71,7 @@ function ContatoAdm() {
 
               <div>
                 <h3>Localização</h3>
-                <p>Fortaleza - CE</p>
+                <p>Rua Coronel Alves Teixeira, 1578 - Fortaleza, CE</p>
               </div>
 
               <button className="btn-editar-absoluto card-contato-edit">

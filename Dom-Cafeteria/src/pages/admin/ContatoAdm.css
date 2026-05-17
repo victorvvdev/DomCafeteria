@@ -91,6 +91,21 @@
   padding-right: 65px;
 }
 
+.info-card-adm-posicionado a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.info-card-adm-posicionado a:visited {
+  color: #ffffff;
+}
+
+.info-card-adm-posicionado a:hover {
+  color: var(--light);
+  text-decoration: underline;
+}
+
 .info-icon {
   width: 52px;
   height: 52px;

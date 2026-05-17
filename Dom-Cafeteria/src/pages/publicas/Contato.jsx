@@ -43,7 +43,7 @@ function Contato() {
             </span>
             <div>
               <h3>Instagram</h3>
-              <p>@dom.cafeteria</p>
+              <a href="https://www.instagram.com/dom.cafeteria/" target="_blank">@dom.cafeteria</a>
             </div>
           </div>
 
@@ -53,7 +53,7 @@ function Contato() {
             </span>
             <div>
               <h3>Localização</h3>
-              <p>Fortaleza - CE</p>
+              <p>Rua Coronel Alves Teixeira, 1578 - Fortaleza, CE</p>
             </div>
           </div>
         </div>
