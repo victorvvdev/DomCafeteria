@@ -6,12 +6,19 @@ function SobreNosAdm() {
   const [editing, setEditing] = useState(null);
   const [historia, setHistoria] = useState("");
 
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [alertaSucesso, setAlertaSucesso] = useState(false);
+  const [alertaErro, setAlertaErro] = useState(false);
+
   useEffect(() => {
     async function carregarHistoria() {
-      const dados = await getHistoria();
-
-      if (dados && dados.texto) {
-        setHistoria(dados.texto);
+      try {
+        const dados = await getHistoria();
+        if (dados && dados.texto) {
+          setHistoria(dados.texto);
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
 
@@ -22,16 +29,34 @@ function SobreNosAdm() {
     setEditing(campo);
   };
 
-  const handleConfirmClick = async () => {
-    if (editing === "historia") {
-      await updateHistoria({
-        texto: historia,
-      });
+  const gatilhoConfirmacao = (e) => {
+    if (e) e.preventDefault();
+    setMostrarModal(true);
+  };
 
-      alert("História atualizada com sucesso!");
+  const confirmarSalvamento = async () => {
+    try {
+      if (editing === "historia") {
+        await updateHistoria({
+          texto: historia,
+        });
+      }
+
+      setEditing(null);
+      setMostrarModal(false);
+      setAlertaSucesso(true);
+      setTimeout(() => setAlertaSucesso(false), 3000);
+    } catch (error) {
+      console.error(error);
+      setEditing(null);
+      setMostrarModal(false);
+      setAlertaErro(true);
+      setTimeout(() => setAlertaErro(false), 4000);
     }
+  };
 
-    setEditing(null);
+  const cancelarEdicao = () => {
+    setMostrarModal(false);
   };
 
   return (
@@ -39,11 +64,10 @@ function SobreNosAdm() {
       <section className="adm-sobre-topo">
         <div className="adm-sobre-topo-texto">
           <h1>Uma história feita com amor, família e cuidado</h1>
-
           <p>
             Conheça a trajetória da Dom Divino e da Dom Cafeteria,
             construída com afeto, dedicação e o desejo de acolher
-            bem em cada detalhe.
+            bem in cada detalhe.
           </p>
         </div>
       </section>
@@ -52,18 +76,9 @@ function SobreNosAdm() {
         <div className="adm-sobre-historia-texto">
           <div className="sobre-adm-titulo">
             <h2>Nossa história</h2>
-
             <button
-              className={
-                editing === "historia"
-                  ? "btn-acao-confirmar"
-                  : "btn-acao-editar"
-              }
-              onClick={
-                editing === "historia"
-                  ? handleConfirmClick
-                  : () => handleEditClick("historia")
-              }
+              className={editing === "historia" ? "btn-sobre-confirmar" : "btn-sobre-editar"}
+              onClick={editing === "historia" ? gatilhoConfirmacao : () => handleEditClick("historia")}
             >
               {editing === "historia" ? "✓" : "✎"}
             </button>
@@ -80,8 +95,7 @@ function SobreNosAdm() {
             <div
               className="adm-historia-formatada"
               dangerouslySetInnerHTML={{
-                __html:
-                  historia || "<p>Nenhuma história cadastrada.</p>",
+                __html: historia || "<p>Nenhuma história cadastrada.</p>",
               }}
             />
           )}
@@ -93,23 +107,13 @@ function SobreNosAdm() {
           <div className="adm-sobre-espaco-topo">
             <div className="sobre-adm-titulo">
               <h2>Nosso espaço</h2>
-
               <button
-                className={
-                  editing === "espaco"
-                    ? "btn-acao-confirmar"
-                    : "btn-acao-editar"
-                }
-                onClick={
-                  editing === "espaco"
-                    ? handleConfirmClick
-                    : () => handleEditClick("espaco")
-                }
+                className={editing === "espaco" ? "btn-sobre-confirmar" : "btn-sobre-editar"}
+                onClick={editing === "espaco" ? gatilhoConfirmacao : () => handleEditClick("espaco")}
               >
                 {editing === "espaco" ? "✓" : "✎"}
               </button>
             </div>
-
             <p>
               Enquanto as fotos finais não são adicionadas,
               você já pode deixar a estrutura visual pronta
@@ -119,52 +123,46 @@ function SobreNosAdm() {
 
           <div className="adm-sobre-cards">
             <article className="adm-sobre-card">
-              <div className="adm-placeholder-img">
-                Imagem do ambiente
-              </div>
-
+              <div className="adm-placeholder-img">Imagem do ambiente</div>
               <div className="adm-sobre-card-info">
                 <h3>Ambiente aconchegante</h3>
-
-                <p>
-                  Um espaço elegante e confortável para
-                  aproveitar cada momento.
-                </p>
+                <p>Um espaço elegante e confortável para aproveitar cada momento.</p>
               </div>
             </article>
 
             <article className="adm-sobre-card">
-              <div className="adm-placeholder-img">
-                Imagem da cafeteria
-              </div>
-
+              <div className="adm-placeholder-img">Imagem da cafeteria</div>
               <div className="adm-sobre-card-info">
                 <h3>Detalhes especiais</h3>
-
-                <p>
-                  Um ambiente planejado para unir charme,
-                  conforto e identidade.
-                </p>
+                <p>Um ambiente planejado para unir charme, conforto e identidade.</p>
               </div>
             </article>
 
             <article className="adm-sobre-card">
-              <div className="adm-placeholder-img">
-                Imagem do espaço premium
-              </div>
-
+              <div className="adm-placeholder-img">Imagem do espaço premium</div>
               <div className="adm-sobre-card-info">
                 <h3>Experiência única</h3>
-
-                <p>
-                  Um lugar pensado para tornar cada visita
-                  mais marcante.
-                </p>
+                <p>Um lugar pensado para tornar cada visita mais marcante.</p>
               </div>
             </article>
           </div>
         </div>
       </section>
+
+      {mostrarModal && (
+        <div className="pessoal-modal-overlay">
+          <div className="pessoal-modal-content">
+            <p>Deseja salvar as alterações?</p>
+            <div className="pessoal-modal-actions">
+              <button type="button" className="btn-modal-confirm" onClick={confirmarSalvamento}>Salvar</button>
+              <button type="button" className="btn-modal-cancel" onClick={cancelarEdicao}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {alertaSucesso && <div className="pessoal-toast">Informação salva com sucesso</div>}
+      {alertaErro && <div className="pessoal-toast">Não foi possível se conectar ao banco de dados</div>}
     </main>
   );
 }
