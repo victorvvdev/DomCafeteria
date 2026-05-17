@@ -6,7 +6,6 @@
   --dark: #3b2a28;
 }
 
-
 .contato-container {
   width: 100%;
   max-width: 1200px;
@@ -17,18 +16,14 @@
 .contato-banner {
   min-height: 270px;
   border-radius: 28px;
-
   background: 
     linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
     url("../../assets/banner-contato.jpg");
-
   background-size: cover;
   background-position: center;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
   margin-bottom: 45px;
   overflow: hidden;
@@ -93,6 +88,21 @@
   margin-bottom: 16px;
 }
 
+.info-card a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.info-card a:visited {
+  color: #ffffff;
+}
+
+.info-card a:hover {
+  color: var(--light);
+  text-decoration: underline;
+}
+
 .info-icon {
   width: 52px;
   height: 52px;
@@ -149,7 +159,6 @@
   background-color: #fff4d8;
   transform: translateY(-3px);
 }
-
 
 @media (max-width: 900px) {
   .contato-content {
