@@ -1,5 +1,10 @@
 import "./Contato.css";
-import { FaWhatsapp, FaInstagram, FaMapMarkerAlt } from "react-icons/fa";
+
+import { 
+  FaWhatsapp, 
+  FaInstagram, 
+  FaMapMarkerAlt 
+} from "react-icons/fa";
 
 function Contato() {
   return (
@@ -58,17 +63,17 @@ function Contato() {
 
           <div className="horario-item">
             <span>Segunda a Sexta</span>
-            <strong>08:00 às 20:00</strong>
+            <strong>07:30 às 18:00</strong>
           </div>
 
           <div className="horario-item">
             <span>Sábado</span>
-            <strong>08:00 às 18:00</strong>
+            <strong>07:30 às 12:00</strong>
           </div>
 
           <div className="horario-item">
             <span>Domingo</span>
-            <strong>09:00 às 14:00</strong>
+            <strong>Fechado</strong>
           </div>
 
           <a
