@@ -10,9 +10,9 @@ function InicioAdm() {
       return savedData ? JSON.parse(savedData) : {
         destaque: "Cafeteria com ambiente acolhedor e cardápio adaptado para diferentes necessidades alimentares.",
         subtitulo: "Desde 2024 marcando corações.",
-        endereco: "Rua Coronel Alves Teixeira, 1578 - Fortaleza - CE",
-        horarioSegSex: "Segunda a Sexta: 8h às 18h",
-        horarioSabado: "Sábado: 8h às 12h",
+        endereco: "Rua Coronel Alves Teixeira, 1578 - Fortaleza, CE",
+        horarioSegSex: "Segunda a Sexta: 7:30 às 18h",
+        horarioSabado: "Sábado: 7:30 às 12h",
         imagemUrl: "https://images.unsplash.com/photo-1509042239860-f550ce710b93",
         faqs: [
           { pergunta: "Vocês têm opções sem lactose?", resposta: "Sim, oferecemos diversas opções adaptadas para restrições alimentares." },

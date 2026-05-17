@@ -18,9 +18,9 @@ function Inicio() {
           <p className="inicio-subtitulo">Desde 2024 marcando corações.</p>
           <div className="inicio-barra"></div>
           <div className="inicio-info-bloco">
-            <p className="inicio-info">Rua Coronel Alves Teixeira, 1578 - Fortaleza - CE</p>
-            <p className="inicio-info">Segunda a Sexta: 8h às 18h</p>
-            <p className="inicio-info">Sábado: 8h às 12h</p>
+            <p className="inicio-info">Rua Coronel Alves Teixeira, 1578 - Fortaleza, CE</p>
+            <p className="inicio-info">Segunda a Sexta: 7:30 às 18h</p>
+            <p className="inicio-info">Sábado: 7:30 às 12h</p>
           </div>
         </div>
         <div className="inicio-imagem"></div>

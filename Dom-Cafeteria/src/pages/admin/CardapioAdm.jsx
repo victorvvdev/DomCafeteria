@@ -53,33 +53,35 @@ export default function CardapioAdm() {
         </div>
       </section>
 
-      <section className="cardapio-adm-content">
-        <div className="cardapio-link-area">
-          <a
-            href={linkCardapio}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-cardapio-completo"
-          >
-            Abrir cardápio completo
-          </a>
-          <button
-            className="btn-editar-link"
-            onClick={() => navigate("/adm/EditarLinkCardapio")}
-          >
-            ✎
-          </button>
-        </div>
+      <div className="cardapio-link-container-adm">
+        <a
+          href={linkCardapio}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cardapio-link-btn-adm"
+        >
+          Abrir cardápio completo
+        </a>
+        <button
+          className="btn-editar-link"
+          onClick={() => navigate("/adm/EditarLinkCardapio")}
+        >
+          ✎
+        </button>
+      </div>
 
-        {carregando ? (
-          <div className="text-center py-5">
-            <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
-              <span className="visually-hidden">Carregando...</span>
-            </div>
+      {carregando && (
+        <div className="text-center py-5">
+          <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
+            <span className="visually-hidden">Carregando...</span>
           </div>
-        ) : erro ? (
-          <p className="text-center" style={{ color: "var(--light)" }}>{erro}</p>
-        ) : (
+        </div>
+      )}
+
+      {erro && <p className="text-center" style={{ color: "var(--light)" }}>{erro}</p>}
+
+      {!carregando && !erro && (
+        <section className="cardapio-adm-content">
           <div className="cardapio-grid">
             {pratos.map((prato) => (
               <div key={prato.id} className="cardapio-item">
@@ -93,8 +95,8 @@ export default function CardapioAdm() {
               </div>
             ))}
           </div>
-        )}
-      </section>
+        </section>
+      )}
     </main>
   );
 }
