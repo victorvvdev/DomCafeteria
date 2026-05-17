@@ -1,131 +1,120 @@
-:root {
-  --bg: #5c3f3c;
-  --primary: #8c5a3c;
-  --secondary: #c08552;
-  --light: #f1e5c8;
-  --dark: #3b2a28;
+.adicionar-adm-page {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 80px;
+  background: linear-gradient(135deg, #5c3f3c, #6d4a45);
+  position: relative;
 }
 
-.adicionar-adm-container {
+.adicionar-adm-wrapper {
   width: 100%;
-  max-width: 1200px;
-  min-height: calc(100vh - 120px);
-  margin: 0 auto;
-  padding: 50px 24px 100px;
-  position: relative;
+  max-width: 1100px;
+  display: flex;
+  justify-content: center;
+}
+
+.adicionar-adm-card {
+  width: 100%;
+  max-width: 600px;
+  background-color: #f8f2e8;
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.adicionar-adm-top {
+  background: linear-gradient(135deg, #8c5a3c, #6f4630);
+  padding: 30px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: 4px solid rgba(60, 35, 25, 0.18);
 }
 
-.btn-voltar {
-  position: absolute;
-  top: 35px;
-  left: 24px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--light);
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 600;
-  transition: 0.3s ease;
-}
-
-.btn-voltar:hover {
-  color: #fff4d8;
-  transform: translateX(-4px);
-}
-
-.card-adicionar-adm {
-  width: 100%;
-  max-width: 560px;
-  background-color: var(--primary);
-  border-radius: 26px;
-  overflow: hidden;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(241, 229, 200, 0.2);
-}
-
-.card-titulo {
-  background-color: rgba(241, 229, 200, 0.12);
-  border-bottom: 2px solid rgba(241, 229, 200, 0.35);
-  padding: 28px 20px;
-  text-align: center;
-}
-
-.card-titulo h1 {
+.adicionar-adm-title {
   margin: 0;
-  color: var(--light);
-  font-size: 28px;
+  text-align: center;
+  color: #f8f2e8;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
-.form-adm {
-  padding: 34px;
+.adicionar-adm-body {
+  padding: 36px 42px 42px;
+}
+
+.adicionar-adm-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
-.form-adm input {
+.adicionar-adm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adicionar-adm-field label {
+  color: #5c3f3c;
+  font-weight: 600;
+  font-size: 0.96rem;
+}
+
+.adicionar-adm-input {
   width: 100%;
-  padding: 15px 18px;
-  border-radius: 14px;
-  border: 2px solid transparent;
+  height: 55px;
+  padding: 0 18px;
+  border-radius: 18px;
+  border: 2px solid #d5c1ae;
+  background-color: #fffdf9;
+  color: #4a342d;
+  font-size: 1rem;
   outline: none;
-  background-color: var(--light);
-  color: var(--dark);
-  font-size: 16px;
-  font-weight: 500;
+  transition: 0.25s ease;
+  box-sizing: border-box;
 }
 
-.form-adm input::placeholder {
-  color: rgba(59, 42, 40, 0.65);
+.adicionar-adm-input::placeholder {
+  color: rgba(92, 63, 60, 0.45);
 }
 
-.form-adm input:focus {
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(192, 133, 82, 0.35);
+.adicionar-adm-input:focus {
+  border-color: #8c5a3c;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(140, 90, 60, 0.1);
 }
 
-.form-adm button {
-  margin: 12px auto 0;
-  padding: 13px 42px;
+.btn-confirmar-pessoal {
+  margin-top: 10px;
+  width: 100%;
+  height: 52px;
   border: none;
-  border-radius: 999px;
-  background-color: var(--light);
-  color: var(--dark);
-  font-size: 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #8c5a3c, #6f4630);
+  color: white;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
 }
 
-.form-adm button:hover {
-  background-color: #fff4d8;
-  transform: translateY(-3px);
+.btn-confirmar-pessoal:hover {
+  transform: scale(1.01);
+  box-shadow: 0 5px 15px rgba(140, 90, 60, 0.3);
 }
 
-@media (max-width: 600px) {
-  .adicionar-adm-container {
-    padding: 80px 16px 90px;
-    align-items: flex-start;
+@media (max-width: 576px) {
+  .adicionar-adm-body {
+    padding: 25px 20px;
   }
-
-  .btn-voltar {
-    top: 28px;
-    left: 16px;
+  .adicionar-adm-card {
+    border-radius: 26px;
   }
-
-  .card-adicionar-adm {
-    border-radius: 22px;
-  }
-
-  .card-titulo h1 {
-    font-size: 23px;
-  }
-
-  .form-adm {
-    padding: 24px;
+  .adicionar-adm-page {
+    padding-top: 40px;
   }
 }
