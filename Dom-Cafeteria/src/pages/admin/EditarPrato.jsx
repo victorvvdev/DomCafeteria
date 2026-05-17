@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPratos, createPrato, updatePrato } from "../../services/cardapioService";
+import { converterParaBase64 } from "../../utils/imageUtils";
+import { base64ParaSrc } from "../../utils/imageDisplay";
 import { FaEdit, FaSave, FaTimes } from "react-icons/fa";
 import "../../styles/EditarPrato.css";
 
@@ -24,7 +26,7 @@ export default function EditarPrato() {
         if (prato) {
           setNome(prato.nome);
           if (prato.foto_url) {
-            setPreview(`data:image/jpeg;base64,${prato.foto_url}`);
+            setPreview(base64ParaSrc(prato.foto_url));
             setFotoBase64(prato.foto_url);
           }
         }
@@ -33,17 +35,16 @@ export default function EditarPrato() {
       .finally(() => setCarregando(false));
   }, [id]);
 
-  function handleFotoChange(e) {
+  async function handleFotoChange(e) {
     const file = e.target.files[0];
     if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      const dataUrl = reader.result;
-      setPreview(dataUrl);
-      setFotoBase64(dataUrl.split(",")[1]);
-    };
-    reader.readAsDataURL(file);
+    try {
+      const base64 = await converterParaBase64(file);
+      setPreview(base64ParaSrc(base64));
+      setFotoBase64(base64);
+    } catch {
+      setErro("Erro ao converter imagem.");
+    }
   }
 
   async function handleSalvar() {

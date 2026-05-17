@@ -1,10 +1,9 @@
 import React from "react";
+import { base64ParaSrc } from "../utils/imageDisplay";
 import "../styles/CardPrato.css";
 
 function CardPrato({ prato }) {
-  const imagemSrc = prato.foto_url
-    ? `data:image/jpeg;base64,${prato.foto_url}`
-    : null;
+  const imagemSrc = base64ParaSrc(prato.foto_url);
 
   return (
     <div className="card-prato">
