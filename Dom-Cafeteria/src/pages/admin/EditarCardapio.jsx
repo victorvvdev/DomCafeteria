@@ -67,16 +67,13 @@ export default function EditarCardapio() {
             className="btn-cardapio-completo"
           >
             Abrir cardápio completo
-            <button
-              className="btn-editar-link"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/adm/EditarLinkCardapio");
-              }}
-            >
-              <FaEdit />
-            </button>
           </a>
+          <button
+            className="btn-editar-link"
+            onClick={() => navigate("/adm/EditarLinkCardapio")}
+          >
+            ✎
+          </button>
         </div>
 
         {carregando && (
@@ -109,7 +106,7 @@ export default function EditarCardapio() {
                     className="btn-editar-card"
                     onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
                   >
-                    <FaEdit />
+                    ✎
                   </button>
                 </div>
                 <p className="card-prato-nome">{prato.nome}</p>

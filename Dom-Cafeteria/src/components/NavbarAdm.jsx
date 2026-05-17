@@ -103,7 +103,7 @@ function NavbarAdm() {
                   fontWeight: "600",
                 }}
               >
-                Informações pessoais
+                Informações Pessoais
               </Link>
 
               <Link
