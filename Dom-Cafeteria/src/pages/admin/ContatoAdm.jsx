@@ -5,19 +5,16 @@ import {
   FaWhatsapp,
   FaInstagram,
   FaMapMarkerAlt,
-  FaEdit,
   FaLink,
-  FaClock,
 } from "react-icons/fa";
 
 function ContatoAdm() {
   return (
     <>
-
       <main className="contato-adm-container">
         <section className="contato-adm-banner">
-          <button className="btn-editar banner-edit">
-            <FaEdit />
+          <button className="btn-editar-absoluto banner-edit">
+            ✎
           </button>
 
           <div className="banner-overlay">
@@ -37,7 +34,7 @@ function ContatoAdm() {
               para falar com nossa equipe.
             </p>
 
-            <div className="info-card-adm">
+            <div className="info-card-adm-posicionado">
               <span className="info-icon">
                 <FaWhatsapp />
               </span>
@@ -47,64 +44,63 @@ function ContatoAdm() {
                 <p>(85) 9 8894-3216</p>
               </div>
 
-              <button className="btn-editar">
-                <FaEdit />
+              <button className="btn-editar-absoluto card-contato-edit">
+                ✎
               </button>
             </div>
 
-            <div className="info-card-adm">
+            <div className="info-card-adm-posicionado">
               <span className="info-icon">
                 <FaInstagram />
               </span>
 
               <div>
                 <h3>Instagram</h3>
-                <p>@dom.cafeteria</p>
+                <a href="https://www.instagram.com/dom.cafeteria/" target="_blank">@dom.cafeteria</a>
               </div>
 
-              <button className="btn-editar">
-                <FaEdit />
+              <button className="btn-editar-absoluto card-contato-edit">
+                ✎
               </button>
             </div>
 
-            <div className="info-card-adm">
+            <div className="info-card-adm-posicionado">
               <span className="info-icon">
                 <FaMapMarkerAlt />
               </span>
 
               <div>
                 <h3>Localização</h3>
-                <p>Fortaleza - CE</p>
+                <p>Rua Coronel Alves Teixeira, 1578 - Fortaleza, CE</p>
               </div>
 
-              <button className="btn-editar">
-                <FaEdit />
+              <button className="btn-editar-absoluto card-contato-edit">
+                ✎
               </button>
             </div>
           </div>
 
           <div className="contato-adm-card">
-            <div className="titulo-com-editar">
+            <div className="titulo-com-editar-absoluto">
               <h2>Horário de atendimento</h2>
-
-              <button className="btn-editar">
-                <FaEdit />
+              <button className="btn-editar-absoluto titulo-horario-edit">
+                ✎
               </button>
             </div>
 
             <div className="horario-item">
               <span>Segunda a Sexta</span>
-              <strong>08:00 às 20:00</strong>
+              <strong>07:30 às 18:00</strong>
             </div>
 
             <div className="horario-item">
               <span>Sábado</span>
-              <strong>08:00 às 18:00</strong>
+              <strong>07:30 às 12:00</strong>
             </div>
 
             <div className="horario-item">
               <span>Domingo</span>
-              <strong>09:00 às 14:00</strong>
+              <strong>Fechado</strong>
             </div>
 
             <div className="whatsapp-link-adm">
@@ -117,7 +113,7 @@ function ContatoAdm() {
                 Chamar no WhatsApp
               </a>
 
-              <button className="btn-editar btn-link">
+              <button className="btn-editar-absoluto btn-link-posicionado">
                 <FaLink />
               </button>
             </div>

@@ -1,45 +1,48 @@
 .sobre {
-  color: var(--creme);
-  padding-bottom: 40px;
-}
-
-.sobre-topo {
-  padding: 70px 20px 40px;
-  text-align: center;
-}
-
-.sobre-topo-texto {
-  max-width: 800px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 45px 24px 90px;
   margin: 0 auto;
 }
 
-.sobre-tag {
-  display: inline-block;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.85rem;
-  color: #d9c3a4;
+.sobre-banner {
+  min-height: 270px;
+  border-radius: 28px;
+  background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+  margin-bottom: 45px;
 }
 
-.sobre-topo h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
+.sobre-banner-texto {
+  text-align: center;
+  padding: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.sobre-banner-texto h1 {
+  font-size: 46px;
+  line-height: 1.2;
+  margin-bottom: 14px;
   color: var(--creme);
 }
 
-.sobre-topo p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #f1e5c8;
+.sobre-banner-texto p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #fff5df;
 }
 
 .sobre-historia {
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0;
   display: block;
 }
 

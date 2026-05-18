@@ -1,5 +1,10 @@
 import "./Contato.css";
-import { FaWhatsapp, FaInstagram, FaMapMarkerAlt } from "react-icons/fa";
+
+import { 
+  FaWhatsapp, 
+  FaInstagram, 
+  FaMapMarkerAlt 
+} from "react-icons/fa";
 
 function Contato() {
   return (
@@ -38,7 +43,7 @@ function Contato() {
             </span>
             <div>
               <h3>Instagram</h3>
-              <p>@dom.cafeteria</p>
+              <a href="https://www.instagram.com/dom.cafeteria/" target="_blank">@dom.cafeteria</a>
             </div>
           </div>
 
@@ -48,7 +53,7 @@ function Contato() {
             </span>
             <div>
               <h3>Localização</h3>
-              <p>Fortaleza - CE</p>
+              <p>Rua Coronel Alves Teixeira, 1578 - Fortaleza, CE</p>
             </div>
           </div>
         </div>
@@ -58,17 +63,17 @@ function Contato() {
 
           <div className="horario-item">
             <span>Segunda a Sexta</span>
-            <strong>08:00 às 20:00</strong>
+            <strong>07:30 às 18:00</strong>
           </div>
 
           <div className="horario-item">
             <span>Sábado</span>
-            <strong>08:00 às 18:00</strong>
+            <strong>07:30 às 12:00</strong>
           </div>
 
           <div className="horario-item">
             <span>Domingo</span>
-            <strong>09:00 às 14:00</strong>
+            <strong>Fechado</strong>
           </div>
 
           <a

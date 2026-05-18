@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CardPrato from "../../components/CardPrato";
 import { getPratos, getLinkCardapio } from "../../services/cardapioService";
-import { FaEdit } from "react-icons/fa";
 import "../../styles/CardapioAdmin.css";
 
 export default function CardapioAdm() {
@@ -40,39 +39,43 @@ export default function CardapioAdm() {
     <main className="cardapio-adm-container">
       <section className="cardapio-adm-banner">
         <button className="btn-editar banner-edit" onClick={() => navigate("/adm/EditarCardapio")}>
-          <FaEdit />
+          ✎
         </button>
         <div className="banner-overlay">
           <h1>Gerenciar Cardápio</h1>
           <p>Adicione, edite ou remova os pratos do seu cardápio.</p>
         </div>
       </section>
-      <section className="cardapio-adm-content">
-        <div className="cardapio-link-area">
-          <a
-            href={linkCardapio}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-cardapio-completo"
-          >
-            Abrir cardápio completo
-          </a>
-          <button
-            className="btn-editar-link"
-            onClick={() => navigate("/adm/EditarLinkCardapio")}
-          >
-            <FaEdit />
-          </button>
-        </div>
-        {carregando ? (
-          <div className="text-center py-5">
-            <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
-              <span className="visually-hidden">Carregando...</span>
-            </div>
+
+      <div className="cardapio-link-container-adm">
+        <a
+          href={linkCardapio}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="cardapio-link-btn-adm"
+        >
+          Abrir cardápio completo
+        </a>
+        <button
+          className="btn-editar-link"
+          onClick={() => navigate("/adm/EditarLinkCardapio")}
+        >
+          ✎
+        </button>
+      </div>
+
+      {carregando && (
+        <div className="text-center py-5">
+          <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
+            <span className="visually-hidden">Carregando...</span>
           </div>
-        ) : erro ? (
-          <p className="text-center" style={{ color: "var(--light)" }}>{erro}</p>
-        ) : (
+        </div>
+      )}
+
+      {erro && <p className="text-center" style={{ color: "var(--light)" }}>{erro}</p>}
+
+      {!carregando && !erro && (
+        <section className="cardapio-adm-content">
           <div className="cardapio-grid">
             {pratos.map((prato) => (
               <div key={prato.idPrato} className="cardapio-item">
@@ -81,13 +84,13 @@ export default function CardapioAdm() {
                   className="btn-editar-item"
                   onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
                 >
-                  <FaEdit />
+                  ✎
                 </button>
               </div>
             ))}
           </div>
-        )}
-      </section>
+        </section>
+      )}
     </main>
   );
 }

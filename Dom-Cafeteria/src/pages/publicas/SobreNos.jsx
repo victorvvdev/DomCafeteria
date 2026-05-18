@@ -23,8 +23,8 @@ function SobreNos() {
 
   return (
     <main className="sobre">
-      <section className="sobre-topo">
-        <div className="sobre-topo-texto">
+      <section className="sobre-banner">
+        <div className="sobre-banner-texto">
           <h1>Uma história feita com amor, família e cuidado</h1>
 
           <p>
