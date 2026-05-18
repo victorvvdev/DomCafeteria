@@ -10,6 +10,38 @@ function SobreNosAdm() {
   const [alertaSucesso, setAlertaSucesso] = useState(false);
   const [alertaErro, setAlertaErro] = useState(false);
 
+  const [cardsEspaco, setCardsEspaco] = useState([
+    {
+      titulo: "Ambiente aconchegante",
+      descricao: "Um espaço elegante e confortável para aproveitar cada momento.",
+      imagem: "",
+    },
+    {
+      titulo: "Detalhes especiais",
+      descricao: "Um ambiente planejado para unir charme, conforto e identidade.",
+      imagem: "",
+    },
+    {
+      titulo: "Experiência única",
+      descricao: "Um lugar pensado para tornar cada visita mais marcante.",
+      imagem: "",
+    },
+  ]);
+
+  const alterarImagem = (index, arquivo) => {
+  const leitor = new FileReader();
+
+  leitor.onloadend = () => {
+    const novosCards = [...cardsEspaco];
+    novosCards[index].imagem = leitor.result;
+    setCardsEspaco(novosCards);
+  };
+
+  if (arquivo) {
+    leitor.readAsDataURL(arquivo);
+  }
+};
+
   useEffect(() => {
     async function carregarHistoria() {
       try {
@@ -40,6 +72,10 @@ function SobreNosAdm() {
         await updateHistoria({
           texto: historia,
         });
+      }
+
+      if (editing === "espaco") {
+        console.log("Cards do espaço atualizados:", cardsEspaco);
       }
 
       setEditing(null);
@@ -114,37 +150,65 @@ function SobreNosAdm() {
                 {editing === "espaco" ? "✓" : "✎"}
               </button>
             </div>
-            <p>
-              Enquanto as fotos finais não são adicionadas,
-              você já pode deixar a estrutura visual pronta
-              com placeholders elegantes.
-            </p>
           </div>
 
           <div className="adm-sobre-cards">
-            <article className="adm-sobre-card">
-              <div className="adm-placeholder-img">Imagem do ambiente</div>
-              <div className="adm-sobre-card-info">
-                <h3>Ambiente aconchegante</h3>
-                <p>Um espaço elegante e confortável para aproveitar cada momento.</p>
-              </div>
-            </article>
+            {cardsEspaco.map((card, index) => (
+              <article className="adm-sobre-card" key={index}>
 
-            <article className="adm-sobre-card">
-              <div className="adm-placeholder-img">Imagem da cafeteria</div>
-              <div className="adm-sobre-card-info">
-                <h3>Detalhes especiais</h3>
-                <p>Um ambiente planejado para unir charme, conforto e identidade.</p>
-              </div>
-            </article>
+                {editing === "espaco" ? (
+                  <>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        alterarImagem(index, e.target.files[0])
+                      }
+                    />
 
-            <article className="adm-sobre-card">
-              <div className="adm-placeholder-img">Imagem do espaço premium</div>
-              <div className="adm-sobre-card-info">
-                <h3>Experiência única</h3>
-                <p>Um lugar pensado para tornar cada visita mais marcante.</p>
-              </div>
-            </article>
+                    <input
+                      type="text"
+                      value={card.titulo}
+                      onChange={(e) => {
+                        const novosCards = [...cardsEspaco];
+                        novosCards[index].titulo = e.target.value;
+                        setCardsEspaco(novosCards);
+                      }}
+                      className="adm-campo-edicao"
+                    />
+
+                    <textarea
+                      value={card.descricao}
+                      onChange={(e) => {
+                        const novosCards = [...cardsEspaco];
+                        novosCards[index].descricao = e.target.value;
+                        setCardsEspaco(novosCards);
+                      }}
+                      className="adm-campo-edicao"
+                    />
+                  </>
+                ) : (
+                  <>
+                    {card.imagem ? (
+                      <img
+                        src={card.imagem}
+                        alt={card.titulo}
+                        className="adm-card-img"
+                      />
+                    ) : (
+                      <div className="adm-sem-imagem">
+                        Sem imagem
+                      </div>
+                    )}
+
+                    <div className="adm-sobre-card-info">
+                      <h3>{card.titulo}</h3>
+                      <p>{card.descricao}</p>
+                    </div>
+                  </>
+                )}
+              </article>
+            ))}
           </div>
         </div>
       </section>

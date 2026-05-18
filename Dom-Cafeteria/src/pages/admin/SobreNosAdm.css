@@ -53,9 +53,9 @@
 
 .sobre-adm-titulo {
   display: flex;
-  align-items: center; 
-  justify-content: center; 
-  gap: 12px; 
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
@@ -65,7 +65,7 @@
   color: var(--creme);
 }
 
-.btn-sobre-editar, 
+.btn-sobre-editar,
 .btn-sobre-confirmar {
   position: relative;
   background: rgba(0, 0, 0, 0.2);
@@ -109,13 +109,10 @@
 }
 
 .adm-sobre-espaco {
-  padding: 40px 0 60px;
-  margin-top: 20px;
-  max-width: 1200px;
+  padding: 40px 20px 60px;
   margin: 0 auto;
+  max-width: 1200px;
   width: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .adm-sobre-espaco-conteudo {
@@ -148,18 +145,11 @@
   transform: translateY(-6px);
 }
 
-.adm-placeholder-img {
+.adm-card-img {
   width: 100%;
-  height: 230px;
-  background: linear-gradient(135deg, #c9ab8c, #a77b59);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #4a2f21;
-  font-weight: 700;
-  font-size: 1rem;
-  text-align: center;
-  padding: 10px;
+  height: 220px;
+  object-fit: cover;
+  display: block;
 }
 
 .adm-sobre-card-info {
@@ -170,6 +160,49 @@
   margin-bottom: 12px;
   color: var(--creme);
   font-size: 1.25rem;
+}
+
+.adm-sobre-card-edicao {
+  padding: 18px;
+}
+
+.adm-campo-edicao {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #c9ab8c;
+  background-color: #f7ecd6;
+  color: #4a2f21;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.adm-campo-edicao:focus {
+  outline: none;
+  border-color: #a77b59;
+  box-shadow: 0 0 0 3px rgba(201, 171, 140, 0.25);
+}
+
+.adm-sem-imagem {
+  width: 100%;
+  height: 220px;
+  border-radius: 18px;
+  background: #d8c2ac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5c3f3c;
+  font-weight: 600;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.adm-sobre-card input[type="file"] {
+  width: 100%;
+  margin-top: 10px;
+  color: var(--creme);
 }
 
 .adm-campo-edicao-historia {
@@ -211,28 +244,6 @@
 .adm-historia-formatada strong {
   font-weight: 700;
   color: #fff2d8;
-}
-
-@media (max-width: 992px) {
-  .adm-sobre-cards {
-    grid-template-columns: 1fr;
-  }
-  .adm-sobre-topo h1 {
-    font-size: 2.4rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .adm-sobre-topo {
-    padding: 50px 15px 30px;
-  }
-  .adm-sobre-topo h1 {
-    font-size: 2rem;
-  }
-  .adm-sobre-historia-texto,
-  .adm-sobre-card-info {
-    padding: 22px;
-  }
 }
 
 .pessoal-modal-overlay {
@@ -320,8 +331,34 @@
     bottom: 10px;
     opacity: 0;
   }
+
   to {
     bottom: 30px;
     opacity: 1;
+  }
+}
+
+@media (max-width: 992px) {
+  .adm-sobre-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-sobre-topo h1 {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .adm-sobre-topo {
+    padding: 50px 15px 30px;
+  }
+
+  .adm-sobre-topo h1 {
+    font-size: 2rem;
+  }
+
+  .adm-sobre-historia-texto,
+  .adm-sobre-card-info {
+    padding: 22px;
   }
 }

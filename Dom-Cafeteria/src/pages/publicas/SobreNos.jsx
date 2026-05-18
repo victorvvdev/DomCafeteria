@@ -4,6 +4,7 @@ import { getHistoria } from "../../services/historiaService";
 
 function SobreNos() {
   const [historia, setHistoria] = useState("");
+  
 
   useEffect(() => {
     async function carregarHistoria() {
@@ -54,12 +55,6 @@ function SobreNos() {
         <div className="sobre-espaco-conteudo">
           <div className="sobre-espaco-topo">
             <h2>Nosso espaço</h2>
-
-            <p>
-              Enquanto as fotos finais não são adicionadas,
-              você já pode deixar a estrutura visual pronta
-              com placeholders elegantes.
-            </p>
           </div>
 
           <div className="sobre-cards">
