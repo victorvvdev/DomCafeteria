@@ -37,9 +37,14 @@ export default function EditarPrato() {
 
   async function handleFotoChange(e) {
     const file = e.target.files[0];
+    console.log("arquivo:", file);
+    console.log("nome:", file?.name);
+    console.log("tamanho:", file?.size);
     if (!file) return;
     try {
-      const base64 = await converterParaBase64(file);
+      const { base64 } = await converterParaBase64(file);
+      console.log("tipo do arquivo:", file.type);
+      console.log("primeiros 30 chars do base64:", base64.substring(0, 30));
       setPreview(base64ParaSrc(base64));
       setFotoBase64(base64);
     } catch {
