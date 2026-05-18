@@ -52,7 +52,7 @@ export default function EditarCardapio() {
       <section className="editar-cardapio-content">
         <div className="editar-cardapio-topo">
           <div className="editar-cardapio-acoes">
-            <button className="btn-acao-topo" onClick={() => navigate("/adm/AdicionarPrato")}>
+            <button className="btn-acao-topo" onClick={() => navigate("/adm/adicionarprato")}>
               <FaPlus />
             </button>
             <button className="btn-acao-topo" onClick={handleRemoverSelecionados}>
@@ -70,7 +70,7 @@ export default function EditarCardapio() {
           </a>
           <button
             className="btn-editar-link"
-            onClick={() => navigate("/adm/EditarLinkCardapio")}
+            onClick={() => navigate("/adm/editarlinkcardapio")}
           >
             ✎
           </button>
@@ -104,7 +104,7 @@ export default function EditarCardapio() {
                   />
                   <button
                     className="btn-editar-card"
-                    onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
+                    onClick={() => navigate(`/adm/editarprato/${prato.idPrato}`)}
                   >
                     ✎
                   </button>
