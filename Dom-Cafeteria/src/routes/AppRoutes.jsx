@@ -35,11 +35,11 @@ function AppRoutes() {
       {/* ADMIN */}
       <Route path="/adm/contato" element={<ContatoAdm />} />
       <Route path="/adm/adicionar" element={<AdicionarAdm />} />
-      <Route path="/adm/Cardapio" element={<CardapioAdm />} />
-      <Route path="/adm/EditarLinkCardapio" element={<EditarLinkCardapio />} />
-      <Route path="/adm/EditarCardapio" element={<EditarCardapio />} />
-      <Route path="/adm/EditarPrato/:id" element={<EditarPrato />} />
-      <Route path="/adm/AdicionarPrato" element={<EditarPrato />} />
+      <Route path="/adm/cardapio" element={<CardapioAdm />} />
+      <Route path="/adm/editarlinkcardapio" element={<EditarLinkCardapio />} />
+      <Route path="/adm/editarcardapio" element={<EditarCardapio />} />
+      <Route path="/adm/editarprato/:id" element={<EditarPrato />} />
+      <Route path="/adm/adicionarprato" element={<EditarPrato />} />
       <Route path="/adm/inicioadm" element={<InicioAdm />} />
       <Route path="/adm/infospessoais" element={<InfosPessoais />} />
       <Route path="/adm/infospessoais2" element={<InfosPessoais2 />} />

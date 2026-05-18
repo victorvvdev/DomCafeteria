@@ -38,7 +38,7 @@ export default function CardapioAdm() {
   return (
     <main className="cardapio-adm-container">
       <section className="cardapio-adm-banner">
-        <button className="btn-editar banner-edit" onClick={() => navigate("/adm/EditarCardapio")}>
+        <button className="btn-editar banner-edit" onClick={() => navigate("/adm/editarcardapio")}>
           ✎
         </button>
         <div className="banner-overlay">
@@ -58,7 +58,7 @@ export default function CardapioAdm() {
         </a>
         <button
           className="btn-editar-link"
-          onClick={() => navigate("/adm/EditarLinkCardapio")}
+          onClick={() => navigate("/adm/editarlinkcardapio")}
         >
           ✎
         </button>
@@ -82,7 +82,7 @@ export default function CardapioAdm() {
                 <CardPrato prato={prato} />
                 <button
                   className="btn-editar-item"
-                  onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
+                  onClick={() => navigate(`/adm/editarprato/${prato.idPrato}`)}
                 >
                   ✎
                 </button>
