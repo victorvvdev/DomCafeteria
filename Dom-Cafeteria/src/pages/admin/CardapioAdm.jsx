@@ -13,7 +13,6 @@ export default function CardapioAdm() {
 
   useEffect(() => {
     let ativo = true;
-
     getPratos()
       .then((dadosPratos) => {
         if (ativo) setPratos(dadosPratos);
@@ -24,7 +23,6 @@ export default function CardapioAdm() {
       .finally(() => {
         if (ativo) setCarregando(false);
       });
-
     getLinkCardapio()
       .then((dadosLink) => {
         if (ativo) setLinkCardapio(dadosLink?.link || "#");
@@ -32,7 +30,6 @@ export default function CardapioAdm() {
       .catch(() => {
         if (ativo) setLinkCardapio("#");
       });
-
     return () => {
       ativo = false;
     };
@@ -44,12 +41,9 @@ export default function CardapioAdm() {
         <button className="btn-editar banner-edit" onClick={() => navigate("/adm/EditarCardapio")}>
           ✎
         </button>
-
         <div className="banner-overlay">
           <h1>Gerenciar Cardápio</h1>
-          <p>
-            Adicione, edite ou remova os pratos do seu cardápio.
-          </p>
+          <p>Adicione, edite ou remova os pratos do seu cardápio.</p>
         </div>
       </section>
 
@@ -84,11 +78,11 @@ export default function CardapioAdm() {
         <section className="cardapio-adm-content">
           <div className="cardapio-grid">
             {pratos.map((prato) => (
-              <div key={prato.id} className="cardapio-item">
+              <div key={prato.idPrato} className="cardapio-item">
                 <CardPrato prato={prato} />
-                <button 
+                <button
                   className="btn-editar-item"
-                  onClick={() => navigate(`/adm/EditarPrato/${prato.id}`)}
+                  onClick={() => navigate(`/adm/EditarPrato/${prato.idPrato}`)}
                 >
                   ✎
                 </button>
