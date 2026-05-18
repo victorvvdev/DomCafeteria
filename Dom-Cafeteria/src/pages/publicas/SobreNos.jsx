@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 import "./SobreNos.css";
 import { getHistoria } from "../../services/historiaService";
+import { getEspacos } from "../../services/espacoService";
+import { base64ParaSrc } from "../../utils/imageDisplay";
 
 function SobreNos() {
   const [historia, setHistoria] = useState("");
+  const [espacos, setEspacos] = useState([]);
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
-    async function carregarHistoria() {
+    async function carregar() {
       try {
-        const dados = await getHistoria();
-
-        if (dados && dados.texto) {
-          setHistoria(dados.texto);
-        }
+        const [dadosHistoria, dadosEspacos] = await Promise.all([
+          getHistoria(),
+          getEspacos(),
+        ]);
+        if (dadosHistoria?.texto) setHistoria(dadosHistoria.texto);
+        if (Array.isArray(dadosEspacos)) setEspacos(dadosEspacos);
       } catch (error) {
-        console.error("Erro ao carregar história:", error);
+        console.error("Erro ao carregar dados:", error);
+      } finally {
+        setCarregando(false);
       }
     }
-
-    carregarHistoria();
+    carregar();
   }, []);
 
   return (
@@ -26,7 +32,6 @@ function SobreNos() {
       <section className="sobre-banner">
         <div className="sobre-banner-texto">
           <h1>Uma história feita com amor, família e cuidado</h1>
-
           <p>
             Conheça a trajetória da Dom Divino e da Dom Cafeteria,
             construída com afeto, dedicação e o desejo de acolher bem
@@ -38,8 +43,13 @@ function SobreNos() {
       <section className="sobre-historia">
         <div className="sobre-historia-texto">
           <h2>Nossa história</h2>
-
-          {historia ? (
+          {carregando ? (
+            <div className="text-center py-5">
+              <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
+                <span className="visually-hidden">Carregando...</span>
+              </div>
+            </div>
+          ) : historia ? (
             <div
               className="historia-formatada"
               dangerouslySetInnerHTML={{ __html: historia }}
@@ -54,59 +64,36 @@ function SobreNos() {
         <div className="sobre-espaco-conteudo">
           <div className="sobre-espaco-topo">
             <h2>Nosso espaço</h2>
-
-            <p>
-              Enquanto as fotos finais não são adicionadas,
-              você já pode deixar a estrutura visual pronta
-              com placeholders elegantes.
-            </p>
           </div>
-
           <div className="sobre-cards">
-            <article className="sobre-card">
-              <div className="placeholder-img">
-                Imagem do ambiente
+            {carregando ? (
+              <div className="text-center py-5">
+                <div className="spinner-border" style={{ color: "var(--light)" }} role="status">
+                  <span className="visually-hidden">Carregando...</span>
+                </div>
               </div>
-
-              <div className="sobre-card-info">
-                <h3>Ambiente aconchegante</h3>
-
-                <p>
-                  Um espaço elegante e confortável para
-                  aproveitar cada momento.
-                </p>
-              </div>
-            </article>
-
-            <article className="sobre-card">
-              <div className="placeholder-img">
-                Imagem da cafeteria
-              </div>
-
-              <div className="sobre-card-info">
-                <h3>Detalhes especiais</h3>
-
-                <p>
-                  Um ambiente planejado para unir charme,
-                  conforto e identidade.
-                </p>
-              </div>
-            </article>
-
-            <article className="sobre-card">
-              <div className="placeholder-img">
-                Imagem do espaço premium
-              </div>
-
-              <div className="sobre-card-info">
-                <h3>Experiência única</h3>
-
-                <p>
-                  Um lugar pensado para tornar cada visita
-                  mais marcante.
-                </p>
-              </div>
-            </article>
+            ) : espacos.length > 0 ? (
+              espacos.map((espaco) => (
+                <article key={espaco.idEspaco} className="sobre-card">
+                  <div className="sobre-card-img-wrapper">
+                    {espaco.foto_url ? (
+                      <img
+                        src={base64ParaSrc(espaco.foto_url)}
+                        alt={espaco.titulo}
+                      />
+                    ) : (
+                      <div className="placeholder-img">Imagem do espaço</div>
+                    )}
+                  </div>
+                  <div className="sobre-card-info">
+                    <h3>{espaco.titulo}</h3>
+                    <p>{espaco.descricao}</p>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <p>Nenhum espaço cadastrado.</p>
+            )}
           </div>
         </div>
       </section>
