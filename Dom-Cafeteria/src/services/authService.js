@@ -14,3 +14,18 @@ export async function login(email, senha) {
 
   return response.json();
 }
+
+export async function recuperarSenha(email) {
+  const response = await fetch(`${API_URL}/auth/recuperar-senha`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
+
+  if (!response.ok) {
+    const erro = await response.json();
+    throw new Error(erro.erro || "Erro ao verificar email.");
+  }
+
+  return response.json();
+}
