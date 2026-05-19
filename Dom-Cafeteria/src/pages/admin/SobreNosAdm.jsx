@@ -1,65 +1,52 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./SobreNosAdm.css";
 import { getHistoria, updateHistoria } from "../../services/historiaService";
+import { getEspacos, createEspaco, updateEspaco } from "../../services/espacoService";
+import { converterParaBase64 } from "../../utils/imageUtils";
+import { base64ParaSrc } from "../../utils/imageDisplay";
+
+const CARDS_PADRAO = [
+  { titulo: "Ambiente aconchegante", descricao: "Um espaço elegante e confortável para aproveitar cada momento.", foto_url: "" },
+  { titulo: "Detalhes especiais", descricao: "Um ambiente planejado para unir charme, conforto e identidade.", foto_url: "" },
+  { titulo: "Experiência única", descricao: "Um lugar pensado para tornar cada visita mais marcante.", foto_url: "" },
+];
 
 function SobreNosAdm() {
   const [editing, setEditing] = useState(null);
   const [historia, setHistoria] = useState("");
-
+  const [cardsEspaco, setCardsEspaco] = useState(CARDS_PADRAO);
+  const [idsEspaco, setIdsEspaco] = useState([null, null, null]);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [alertaSucesso, setAlertaSucesso] = useState(false);
   const [alertaErro, setAlertaErro] = useState(false);
-
-  const [cardsEspaco, setCardsEspaco] = useState([
-    {
-      titulo: "Ambiente aconchegante",
-      descricao: "Um espaço elegante e confortável para aproveitar cada momento.",
-      imagem: "",
-    },
-    {
-      titulo: "Detalhes especiais",
-      descricao: "Um ambiente planejado para unir charme, conforto e identidade.",
-      imagem: "",
-    },
-    {
-      titulo: "Experiência única",
-      descricao: "Um lugar pensado para tornar cada visita mais marcante.",
-      imagem: "",
-    },
-  ]);
-
-  const alterarImagem = (index, arquivo) => {
-  const leitor = new FileReader();
-
-  leitor.onloadend = () => {
-    const novosCards = [...cardsEspaco];
-    novosCards[index].imagem = leitor.result;
-    setCardsEspaco(novosCards);
-  };
-
-  if (arquivo) {
-    leitor.readAsDataURL(arquivo);
-  }
-};
+  const inputFotoRefs = useRef({});
 
   useEffect(() => {
-    async function carregarHistoria() {
+    async function carregar() {
       try {
-        const dados = await getHistoria();
-        if (dados && dados.texto) {
-          setHistoria(dados.texto);
+        const [dadosHistoria, dadosEspacos] = await Promise.all([
+          getHistoria(),
+          getEspacos(),
+        ]);
+        if (dadosHistoria?.texto) setHistoria(dadosHistoria.texto);
+        if (Array.isArray(dadosEspacos) && dadosEspacos.length > 0) {
+          setIdsEspaco(CARDS_PADRAO.map((_, i) => dadosEspacos[i]?.idEspaco || null));
+          setCardsEspaco(
+            CARDS_PADRAO.map((padrao, i) => ({
+              titulo: dadosEspacos[i]?.titulo || padrao.titulo,
+              descricao: dadosEspacos[i]?.descricao || padrao.descricao,
+              foto_url: dadosEspacos[i]?.foto_url || padrao.foto_url,
+            }))
+          );
         }
       } catch (error) {
         console.error(error);
       }
     }
-
-    carregarHistoria();
+    carregar();
   }, []);
 
-  const handleEditClick = (campo) => {
-    setEditing(campo);
-  };
+  const handleEditClick = (campo) => setEditing(campo);
 
   const gatilhoConfirmacao = (e) => {
     if (e) e.preventDefault();
@@ -69,13 +56,22 @@ function SobreNosAdm() {
   const confirmarSalvamento = async () => {
     try {
       if (editing === "historia") {
-        await updateHistoria({
-          texto: historia,
-        });
+        await updateHistoria(historia);
       }
 
       if (editing === "espaco") {
-        console.log("Cards do espaço atualizados:", cardsEspaco);
+        const novosIds = [...idsEspaco];
+        await Promise.all(
+          cardsEspaco.map(async (card, i) => {
+            if (novosIds[i]) {
+              await updateEspaco(novosIds[i], card.foto_url, card.titulo, card.descricao);
+            } else {
+              const criado = await createEspaco(card.foto_url, card.titulo, card.descricao);
+              novosIds[i] = criado.idEspaco;
+            }
+          })
+        );
+        setIdsEspaco(novosIds);
       }
 
       setEditing(null);
@@ -91,8 +87,23 @@ function SobreNosAdm() {
     }
   };
 
-  const cancelarEdicao = () => {
-    setMostrarModal(false);
+  const cancelarEdicao = () => setMostrarModal(false);
+
+  const alterarCampo = (index, campo, valor) => {
+    const novos = [...cardsEspaco];
+    novos[index] = { ...novos[index], [campo]: valor };
+    setCardsEspaco(novos);
+  };
+
+  const alterarImagem = async (index, arquivo) => {
+    if (!arquivo) return;
+    try {
+      const { base64 } = await converterParaBase64(arquivo);
+      alterarCampo(index, "foto_url", base64);
+    } catch {
+      setAlertaErro(true);
+      setTimeout(() => setAlertaErro(false), 4000);
+    }
   };
 
   return (
@@ -155,52 +166,51 @@ function SobreNosAdm() {
           <div className="adm-sobre-cards">
             {cardsEspaco.map((card, index) => (
               <article className="adm-sobre-card" key={index}>
-
                 {editing === "espaco" ? (
                   <>
                     <input
+                      ref={(el) => (inputFotoRefs.current[index] = el)}
                       type="file"
                       accept="image/*"
-                      onChange={(e) =>
-                        alterarImagem(index, e.target.files[0])
-                      }
+                      style={{ display: "none" }}
+                      onChange={(e) => alterarImagem(index, e.target.files[0])}
                     />
-
+                    <button
+                      className="btn-editar-foto-espaco"
+                      onClick={() => inputFotoRefs.current[index]?.click()}
+                    >
+                      ✎ Foto
+                    </button>
+                    {card.foto_url && (
+                      <img
+                        src={base64ParaSrc(card.foto_url)}
+                        alt={card.titulo}
+                        className="adm-card-img"
+                      />
+                    )}
                     <input
                       type="text"
                       value={card.titulo}
-                      onChange={(e) => {
-                        const novosCards = [...cardsEspaco];
-                        novosCards[index].titulo = e.target.value;
-                        setCardsEspaco(novosCards);
-                      }}
+                      onChange={(e) => alterarCampo(index, "titulo", e.target.value)}
                       className="adm-campo-edicao"
                     />
-
                     <textarea
                       value={card.descricao}
-                      onChange={(e) => {
-                        const novosCards = [...cardsEspaco];
-                        novosCards[index].descricao = e.target.value;
-                        setCardsEspaco(novosCards);
-                      }}
+                      onChange={(e) => alterarCampo(index, "descricao", e.target.value)}
                       className="adm-campo-edicao"
                     />
                   </>
                 ) : (
                   <>
-                    {card.imagem ? (
+                    {card.foto_url ? (
                       <img
-                        src={card.imagem}
+                        src={base64ParaSrc(card.foto_url)}
                         alt={card.titulo}
                         className="adm-card-img"
                       />
                     ) : (
-                      <div className="adm-sem-imagem">
-                        Sem imagem
-                      </div>
+                      <div className="adm-sem-imagem">Sem imagem</div>
                     )}
-
                     <div className="adm-sobre-card-info">
                       <h3>{card.titulo}</h3>
                       <p>{card.descricao}</p>

@@ -5,8 +5,7 @@ import {
   updateLinkCardapio,
   removeLinkCardapio,
 } from "../../services/cardapioService";
-
-import { FaEdit, FaTrash, FaTimes } from "react-icons/fa";
+import { FaEdit, FaTrash, FaTimes, FaArrowLeft } from "react-icons/fa";
 import "../../styles/EditarLinkCardapio.css";
 
 function isLinkValido(link) {
@@ -23,7 +22,6 @@ export default function EditarLinkCardapio() {
   const [novoLink, setNovoLink] = useState("");
   const [mensagem, setMensagem] = useState(null);
   const [carregando, setCarregando] = useState(true);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,20 +36,16 @@ export default function EditarLinkCardapio() {
       setMensagem('O campo "Novo link" está vazio.');
       return;
     }
-
     if (!isLinkValido(novoLink)) {
       setMensagem("Link inválido.");
       return;
     }
-
     if (novoLink === linkAtual) {
       setMensagem("Os links estão iguais.");
       return;
     }
-
     try {
       await updateLinkCardapio(novoLink);
-
       setLinkAtual(novoLink);
       setNovoLink("");
       setMensagem("Link alterado com sucesso.");
@@ -65,10 +59,8 @@ export default function EditarLinkCardapio() {
       setMensagem("Não existe um link atual para remover.");
       return;
     }
-
     try {
       await removeLinkCardapio();
-
       setLinkAtual(null);
       setMensagem("Link removido com sucesso.");
     } catch {
@@ -77,6 +69,11 @@ export default function EditarLinkCardapio() {
   }
 
   function handleCancelar() {
+    setNovoLink("");
+    setMensagem(null);
+  }
+
+  function handleVoltar() {
     navigate(-1);
   }
 
@@ -88,7 +85,6 @@ export default function EditarLinkCardapio() {
           <p>Atualize o link externo do seu cardápio.</p>
         </div>
       </section>
-
       <section className="editar-link-content">
         <div className="editar-link-form">
           <input
@@ -101,7 +97,6 @@ export default function EditarLinkCardapio() {
             }
             disabled
           />
-
           <input
             className="editar-link-input"
             type="text"
@@ -109,22 +104,21 @@ export default function EditarLinkCardapio() {
             value={novoLink}
             onChange={(e) => setNovoLink(e.target.value)}
           />
-
           {mensagem && (
             <p className="editar-link-mensagem">{mensagem}</p>
           )}
-
           <div className="editar-link-acoes">
             <button className="btn-custom" onClick={handleAlterar}>
               <FaEdit /> Alterar
             </button>
-
             <button className="btn-custom" onClick={handleRemover}>
               <FaTrash /> Remover
             </button>
-
             <button className="btn-custom" onClick={handleCancelar}>
               <FaTimes /> Cancelar
+            </button>
+            <button className="btn-custom" onClick={handleVoltar}>
+              <FaArrowLeft /> concluir
             </button>
           </div>
         </div>
