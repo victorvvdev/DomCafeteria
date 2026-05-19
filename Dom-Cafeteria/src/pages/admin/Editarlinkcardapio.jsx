@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
-import { getLinkCardapio, updateLinkCardapio, removeLinkCardapio } from "../../services/cardapioService";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import {
+  getLinkCardapio,
+  updateLinkCardapio,
+  removeLinkCardapio,
+} from "../../services/cardapioService";
+
+import { FaEdit, FaTrash, FaTimes } from "react-icons/fa";
 import "../../styles/EditarLinkCardapio.css";
 
 function isLinkValido(link) {
@@ -18,6 +24,8 @@ export default function EditarLinkCardapio() {
   const [mensagem, setMensagem] = useState(null);
   const [carregando, setCarregando] = useState(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     getLinkCardapio()
       .then((dados) => setLinkAtual(dados?.link || null))
@@ -30,16 +38,20 @@ export default function EditarLinkCardapio() {
       setMensagem('O campo "Novo link" está vazio.');
       return;
     }
+
     if (!isLinkValido(novoLink)) {
       setMensagem("Link inválido.");
       return;
     }
+
     if (novoLink === linkAtual) {
       setMensagem("Os links estão iguais.");
       return;
     }
+
     try {
       await updateLinkCardapio(novoLink);
+
       setLinkAtual(novoLink);
       setNovoLink("");
       setMensagem("Link alterado com sucesso.");
@@ -53,13 +65,19 @@ export default function EditarLinkCardapio() {
       setMensagem("Não existe um link atual para remover.");
       return;
     }
+
     try {
       await removeLinkCardapio();
+
       setLinkAtual(null);
       setMensagem("Link removido com sucesso.");
     } catch {
       setMensagem("Erro ao remover o link.");
     }
+  }
+
+  function handleCancelar() {
+    navigate(-1);
   }
 
   return (
@@ -76,7 +94,11 @@ export default function EditarLinkCardapio() {
           <input
             className="editar-link-input"
             type="text"
-            placeholder={carregando ? "Carregando..." : `Link atual: ${linkAtual || "nenhum"}`}
+            placeholder={
+              carregando
+                ? "Carregando..."
+                : `Link atual: ${linkAtual || "nenhum"}`
+            }
             disabled
           />
 
@@ -88,14 +110,21 @@ export default function EditarLinkCardapio() {
             onChange={(e) => setNovoLink(e.target.value)}
           />
 
-          {mensagem && <p className="editar-link-mensagem">{mensagem}</p>}
+          {mensagem && (
+            <p className="editar-link-mensagem">{mensagem}</p>
+          )}
 
           <div className="editar-link-acoes">
             <button className="btn-custom" onClick={handleAlterar}>
               <FaEdit /> Alterar
             </button>
+
             <button className="btn-custom" onClick={handleRemover}>
               <FaTrash /> Remover
+            </button>
+
+            <button className="btn-custom" onClick={handleCancelar}>
+              <FaTimes /> Cancelar
             </button>
           </div>
         </div>

@@ -8,6 +8,7 @@ function SobreNos() {
   const [historia, setHistoria] = useState("");
   const [espacos, setEspacos] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  
 
   useEffect(() => {
     async function carregar() {
