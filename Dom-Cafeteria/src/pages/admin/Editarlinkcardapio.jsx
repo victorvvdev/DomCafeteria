@@ -118,7 +118,7 @@ export default function EditarLinkCardapio() {
               <FaTimes /> Cancelar
             </button>
             <button className="btn-custom" onClick={handleVoltar}>
-              <FaArrowLeft /> Voltar
+              <FaArrowLeft /> concluir
             </button>
           </div>
         </div>
