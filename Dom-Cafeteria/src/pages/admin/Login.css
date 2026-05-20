@@ -132,6 +132,13 @@
   filter: brightness(1.03);
 }
 
+.login-erro {
+  color: #c0392b;
+  font-size: 0.95rem;
+  margin: -8px 0 0;
+  font-weight: 500;
+}
+
 @media (max-width: 576px) {
   .login-page {
     padding: 25px 14px 70px;
