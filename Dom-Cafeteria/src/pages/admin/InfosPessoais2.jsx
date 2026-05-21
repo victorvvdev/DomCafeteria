@@ -1,22 +1,64 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./InfosPessoais2.css";
+
+const API_URL = "http://localhost:3000/api";
 
 function InfosPessoais2() {
   const navigate = useNavigate();
   const [senhas, setSenhas] = useState({ atual: "", nova: "", confirmar: "" });
   const [sucesso, setSucesso] = useState(false);
+  const [erro, setErro] = useState(null);
+  const [carregando, setCarregando] = useState(false);
+  const [idUsuario, setIdUsuario] = useState(null);
+  const [emailUsuario, setEmailUsuario] = useState(null);
 
-  const senhaCurtaOuSimples = senhas.nova.length > 0 && 
+  useEffect(() => {
+    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    if (!usuario) {
+      navigate("/login");
+      return;
+    }
+    setIdUsuario(usuario.idUsuarios);
+    setEmailUsuario(usuario.email);
+  }, []);
+
+  const senhaCurtaOuSimples = senhas.nova.length > 0 &&
     (senhas.nova.length < 8 || !/[A-Z]/.test(senhas.nova) || !/[a-z]/.test(senhas.nova));
-  
+
   const senhasDiferentes = senhas.confirmar.length > 0 && senhas.nova !== senhas.confirmar;
   const camposVazios = !senhas.atual || !senhas.nova || !senhas.confirmar;
 
-  const handleConfirmar = () => {
+  const handleConfirmar = async () => {
     if (camposVazios || senhaCurtaOuSimples || senhasDiferentes) return;
-    setSucesso(true);
-    setTimeout(() => navigate("/adm/infospessoais"), 3000);
+    setErro(null);
+    setCarregando(true);
+    try {
+      const verificacao = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailUsuario, senha: senhas.atual }),
+      });
+      if (!verificacao.ok) {
+        setErro("Senha atual incorreta.");
+        setCarregando(false);
+        return;
+      }
+
+      const atualizacao = await fetch(`${API_URL}/usuarios/${idUsuario}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ senha: senhas.nova }),
+      });
+      if (!atualizacao.ok) throw new Error();
+
+      setSucesso(true);
+      setTimeout(() => navigate("/adm/infospessoais"), 3000);
+    } catch {
+      setErro("Não foi possível alterar a senha.");
+    } finally {
+      setCarregando(false);
+    }
   };
 
   return (
@@ -26,41 +68,37 @@ function InfosPessoais2() {
           <div className="senha-top">
             <h2 className="senha-title">Alterar Senha</h2>
           </div>
-
           <div className="senha-body">
             <div className="senha-form">
               <div className="senha-field">
                 <label>Senha Atual</label>
-                <input 
-                  type="password" 
-                  className="senha-input" 
+                <input
+                  type="password"
+                  className="senha-input"
                   placeholder="Digite a senha atual"
                   value={senhas.atual}
-                  onChange={(e) => setSenhas({...senhas, atual: e.target.value})} 
+                  onChange={(e) => setSenhas({ ...senhas, atual: e.target.value })}
                 />
               </div>
-
               <div className="senha-field">
                 <label>Nova Senha</label>
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   className={`senha-input ${senhaCurtaOuSimples ? "error" : ""}`}
                   placeholder="Digite a nova senha"
                   value={senhas.nova}
-                  onChange={(e) => setSenhas({...senhas, nova: e.target.value})} 
+                  onChange={(e) => setSenhas({ ...senhas, nova: e.target.value })}
                 />
               </div>
-
               <div className="senha-field">
                 <label>Confirmar Nova Senha</label>
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   className={`senha-input ${senhasDiferentes ? "error" : ""}`}
                   placeholder="Confirme a nova senha"
                   value={senhas.confirmar}
-                  onChange={(e) => setSenhas({...senhas, confirmar: e.target.value})} 
+                  onChange={(e) => setSenhas({ ...senhas, confirmar: e.target.value })}
                 />
-                
                 <div className="senha-avisos">
                   {senhaCurtaOuSimples && (
                     <span className="senha-error-msg">
@@ -72,16 +110,18 @@ function InfosPessoais2() {
                       As senhas não coincidem.
                     </span>
                   )}
+                  {erro && (
+                    <span className="senha-error-msg">{erro}</span>
+                  )}
                 </div>
               </div>
-
               <div className="senha-actions">
-                <button 
-                  className="senha-btn-confirm" 
+                <button
+                  className="senha-btn-confirm"
                   onClick={handleConfirmar}
-                  disabled={camposVazios || senhaCurtaOuSimples || senhasDiferentes}
+                  disabled={camposVazios || senhaCurtaOuSimples || senhasDiferentes || carregando}
                 >
-                  Confirmar Alteração
+                  {carregando ? "Salvando..." : "Confirmar Alteração"}
                 </button>
                 <button className="senha-btn-cancel" onClick={() => navigate(-1)}>
                   Cancelar
