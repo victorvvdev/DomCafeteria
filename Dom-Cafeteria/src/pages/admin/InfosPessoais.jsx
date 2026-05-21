@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./InfosPessoais.css";
 
+const API_URL = "http://localhost:3000/api";
+
 function InfosPessoais() {
   const navigate = useNavigate();
   const [dados, setDados] = useState({ nome: "", telefone: "", email: "" });
@@ -11,13 +13,28 @@ function InfosPessoais() {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [campoParaSalvar, setCampoParaSalvar] = useState("");
   const [alertaSucesso, setAlertaSucesso] = useState(false);
+  const [alertaErro, setAlertaErro] = useState(false);
+  const [idUsuario, setIdUsuario] = useState(null);
 
   useEffect(() => {
-    setDados({
-      nome: "Administrador",
-      telefone: "(85) 99999-9999",
-      email: "admin@email.com"
-    });
+    const usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    if (!usuario) {
+      navigate("/login");
+      return;
+    }
+    setIdUsuario(usuario.idUsuarios);
+
+    async function carregar() {
+      try {
+        const response = await fetch(`${API_URL}/usuarios/${usuario.idUsuarios}`);
+        if (!response.ok) throw new Error();
+        const data = await response.json();
+        setDados({ nome: data.nome, telefone: data.telefone, email: data.email });
+      } catch {
+        setDados({ nome: usuario.nome, telefone: "", email: usuario.email });
+      }
+    }
+    carregar();
   }, []);
 
   const validarTelefone = (v) => /^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/.test(v);
@@ -44,11 +61,27 @@ function InfosPessoais() {
     }
   };
 
-  const confirmarSalvamento = () => {
-    setEditando({ ...editando, [campoParaSalvar]: false });
-    setMostrarModal(false);
-    setAlertaSucesso(true);
-    setTimeout(() => setAlertaSucesso(false), 3000);
+  const confirmarSalvamento = async () => {
+    try {
+      const response = await fetch(`${API_URL}/usuarios/${idUsuario}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ [campoParaSalvar]: dados[campoParaSalvar] }),
+      });
+      if (!response.ok) throw new Error();
+
+      const usuarioAtual = JSON.parse(sessionStorage.getItem("usuario"));
+      sessionStorage.setItem("usuario", JSON.stringify({ ...usuarioAtual, [campoParaSalvar]: dados[campoParaSalvar] }));
+
+      setEditando({ ...editando, [campoParaSalvar]: false });
+      setMostrarModal(false);
+      setAlertaSucesso(true);
+      setTimeout(() => setAlertaSucesso(false), 3000);
+    } catch {
+      setMostrarModal(false);
+      setAlertaErro(true);
+      setTimeout(() => setAlertaErro(false), 4000);
+    }
   };
 
   const cancelarEdicao = () => {
@@ -148,6 +181,7 @@ function InfosPessoais() {
       )}
 
       {alertaSucesso && <div className="pessoal-toast">Informação salva com sucesso</div>}
+      {alertaErro && <div className="pessoal-toast">Não foi possível salvar as informações</div>}
     </main>
   );
 }
