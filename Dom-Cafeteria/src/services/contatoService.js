@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://dom-cafeteria-api.vercel.app/api";
 
 export async function getContatoHeader() {
   const response = await fetch(`${API_URL}/contato-header`);
