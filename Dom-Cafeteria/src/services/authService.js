@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-const API_URL = "http://localhost:3000/api";
-=======
 const API_URL = "https://dom-cafeteria-api.vercel.app";
->>>>>>> Stashed changes
 
 export async function login(email, senha) {
   const response = await fetch(`${API_URL}/auth/login`, {

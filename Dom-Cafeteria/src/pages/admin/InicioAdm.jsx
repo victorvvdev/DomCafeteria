@@ -2,10 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import "../admin/InicioAdm.css";
 import { getHorarios } from "../../services/contatoService";
 import { getContatoInfo } from "../../services/contatoService";
+import { getInicio, updateInicio, getDuvidas, updateDuvida, createDuvida } from "../../services/inicioService";
 import { converterParaBase64 } from "../../utils/imageUtils";
 import { base64ParaSrc } from "../../utils/imageDisplay";
-
-const API_URL = "https://dom-cafeteria-api.vercel.app";
 
 function InicioAdm() {
   const [faqAberto, setFaqAberto] = useState(false);
@@ -25,10 +24,10 @@ function InicioAdm() {
     async function carregar() {
       try {
         const [dadosInicio, dadosHorarios, dadosContato, dadosFaqs] = await Promise.all([
-          fetch(`${API_URL}/inicio`).then((r) => r.json()),
+          getInicio(),
           getHorarios(),
           getContatoInfo(),
-          fetch(`${API_URL}/duvidas`).then((r) => r.json()),
+          getDuvidas(),
         ]);
 
         if (dadosInicio) {
@@ -52,37 +51,17 @@ function InicioAdm() {
 
   const confirmarSalvamento = async () => {
     try {
-      if (editing === "texto") {
-        await fetch(`${API_URL}/inicio`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ texto: destaque, foto: imagemBase64 || "" }),
-        });
-      }
-
-      if (editing === "imagem") {
-        await fetch(`${API_URL}/inicio`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ foto: imagemBase64, texto: destaque }),
-        });
+      if (editing === "texto" || editing === "imagem") {
+        await updateInicio(destaque, imagemBase64 || "");
       }
 
       if (editing?.startsWith("faq-")) {
         const index = parseInt(editing.split("-")[1]);
         const faq = faqs[index];
         if (faq.idDuvida) {
-          await fetch(`${API_URL}/duvidas/${faq.idDuvida}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ pergunta: faq.pergunta, resposta: faq.resposta }),
-          });
+          await updateDuvida(faq.idDuvida, faq.pergunta, faq.resposta);
         } else {
-          const criado = await fetch(`${API_URL}/duvidas`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ pergunta: faq.pergunta, resposta: faq.resposta }),
-          }).then((r) => r.json());
+          const criado = await createDuvida(faq.pergunta, faq.resposta);
           const novosFaqs = [...faqs];
           novosFaqs[index] = { ...novosFaqs[index], idDuvida: criado.idDuvida };
           setFaqs(novosFaqs);
