@@ -1,7 +1,11 @@
 const API_URL = "https://dom-cafeteria-api.vercel.app/api";
 
 export async function getPratos() {
+<<<<<<< Updated upstream
   const response = await fetch(`${API_URL}/pratos`);
+=======
+  const response = await fetch(`${API_URL}/api/pratos`);
+>>>>>>> Stashed changes
   if (!response.ok) throw new Error("Erro ao buscar pratos.");
   return response.json();
 }

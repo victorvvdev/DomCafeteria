@@ -1,7 +1,11 @@
 const API_URL = "https://dom-cafeteria-api.vercel.app/api";
 
 export async function getContatoHeader() {
+<<<<<<< Updated upstream
   const response = await fetch(`${API_URL}/contato-header`);
+=======
+  const response = await fetch(`${API_URL}/api/contato-header`);
+>>>>>>> Stashed changes
   if (!response.ok) throw new Error("Erro ao buscar header do contato.");
   return response.json();
 }

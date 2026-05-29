@@ -1,7 +1,11 @@
 const API_URL = "https://dom-cafeteria-api.vercel.app/api";
 
 export async function getHistoria() {
+<<<<<<< Updated upstream
   const response = await fetch(`${API_URL}/historia`);
+=======
+  const response = await fetch(`${API_URL}/api/historia`);
+>>>>>>> Stashed changes
   if (!response.ok) throw new Error("Erro ao buscar história.");
   return response.json();
 }

@@ -68,10 +68,16 @@ function InfosPessoais() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ [campoParaSalvar]: dados[campoParaSalvar] }),
       });
+<<<<<<< Updated upstream
       if (!response.ok) throw new Error();
 
       const usuarioAtual = JSON.parse(sessionStorage.getItem("usuario"));
       sessionStorage.setItem("usuario", JSON.stringify({ ...usuarioAtual, [campoParaSalvar]: dados[campoParaSalvar] }));
+=======
+      if (!response.ok) throw new Error("Erro ao atualizar usuário.");
+      const usuarioAtualizado = await response.json();
+      sessionStorage.setItem("usuario", JSON.stringify({ ...usuarioAtualizado }));
+>>>>>>> Stashed changes
 
       setEditando({ ...editando, [campoParaSalvar]: false });
       setMostrarModal(false);
