@@ -3,7 +3,7 @@ import "./Inicio.css";
 import { getHorarios, getContatoInfo } from "../../services/contatoService";
 import { base64ParaSrc } from "../../utils/imageDisplay";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://dom-cafeteria-api.vercel.app";
 
 function Inicio() {
   const [faqAberto, setFaqAberto] = useState(false);

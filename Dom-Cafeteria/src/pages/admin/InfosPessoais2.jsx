@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./InfosPessoais2.css";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://dom-cafeteria-api.vercel.app";
 
 function InfosPessoais2() {
   const navigate = useNavigate();

@@ -5,7 +5,7 @@ import { getContatoInfo } from "../../services/contatoService";
 import { converterParaBase64 } from "../../utils/imageUtils";
 import { base64ParaSrc } from "../../utils/imageDisplay";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://dom-cafeteria-api.vercel.app";
 
 function InicioAdm() {
   const [faqAberto, setFaqAberto] = useState(false);

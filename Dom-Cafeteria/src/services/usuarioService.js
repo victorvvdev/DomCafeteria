@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 const API_URL = "http://localhost:3000/api";
+=======
+const API_URL = "https://dom-cafeteria-api.vercel.app";
+>>>>>>> Stashed changes
 
 export async function createUsuario(nome, email, senha, telefone) {
   const response = await fetch(`${API_URL}/usuarios`, {
