@@ -33,6 +33,7 @@ function AppRoutes() {
       <Route path="/recuperarsenha" element={<RecuperarSenha />} />
 
       {/* ADMIN */}
+      <Route path="/adm" element={<InicioAdm />} />
       <Route path="/adm/contato" element={<ContatoAdm />} />
       <Route path="/adm/adicionar" element={<AdicionarAdm />} />
       <Route path="/adm/cardapio" element={<CardapioAdm />} />

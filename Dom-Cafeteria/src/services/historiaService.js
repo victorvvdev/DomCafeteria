@@ -1,17 +1,17 @@
-const API_URL = "https://dom-cafeteria-api.vercel.app";
+const API_URL = "https://dom-cafeteria-api.vercel.app/api";
 
 export async function getHistoria() {
-  const response = await fetch(`${API_URL}/api/historia`,
-  if (!response.ok) throw new Error("Erro ao buscar história.");
-  return response.json();
+  const resp = await fetch(`${API_URL}/historia`);
+  if (!resp.ok) throw new Error("Erro ao buscar história.");
+  return resp.json();
 }
 
 export async function updateHistoria(texto) {
-  const response = await fetch(`${API_URL}/api/historia`, {
+  const resp = await fetch(`${API_URL}/historia`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ texto }),
   });
-  if (!response.ok) throw new Error("Erro ao atualizar história.");
-  return response.json();
+  if (!resp.ok) throw new Error("Erro ao atualizar história.");
+  return resp.json();
 }

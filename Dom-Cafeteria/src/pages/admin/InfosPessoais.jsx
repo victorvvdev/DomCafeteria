@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUsuarioById, updateUsuario } from "../../services/usuarioService";
 import "./InfosPessoais.css";
+import { getUsuarioById, updateUsuario } from "../../services/usuarioService";
 
 function InfosPessoais() {
   const navigate = useNavigate();
@@ -60,9 +60,9 @@ function InfosPessoais() {
 
   const confirmarSalvamento = async () => {
     try {
-      const response = await fetch(`${API_URL}/usuarios/${idUsuario}`, {
-        method: "PUT",
-      await updateUsuario(idUsuario, { [campoParaSalvar]: dados[campoParaSalvar] }ssionStorage.getItem("usuario"));
+      await updateUsuario(idUsuario, { [campoParaSalvar]: dados[campoParaSalvar] });
+
+      const usuarioAtual = JSON.parse(sessionStorage.getItem("usuario"));
       sessionStorage.setItem("usuario", JSON.stringify({ ...usuarioAtual, [campoParaSalvar]: dados[campoParaSalvar] }));
 
       setEditando({ ...editando, [campoParaSalvar]: false });
