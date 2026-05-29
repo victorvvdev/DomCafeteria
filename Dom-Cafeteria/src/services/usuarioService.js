@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
+const API_URL = "http://localhost:3000/api";
+=======
 const API_URL = "https://dom-cafeteria-api.vercel.app";
+>>>>>>> Stashed changes
 
 export async function createUsuario(nome, email, senha, telefone) {
   const response = await fetch(`${API_URL}/usuarios`, {
@@ -12,21 +16,5 @@ export async function createUsuario(nome, email, senha, telefone) {
     throw new Error(erro.erro || "Erro ao cadastrar usuário.");
   }
 
-  return response.json();
-}
-
-export async function getUsuarioById(id) {
-  const response = await fetch(`${API_URL}/usuarios/${id}`);
-  if (!response.ok) throw new Error("Erro ao buscar usuário.");
-  return response.json();
-}
-
-export async function updateUsuario(id, data) {
-  const response = await fetch(`${API_URL}/usuarios/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) throw new Error("Erro ao atualizar usuário.");
   return response.json();
 }

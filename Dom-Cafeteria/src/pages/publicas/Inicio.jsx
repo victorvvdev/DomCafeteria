@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "./Inicio.css";
 import { getHorarios, getContatoInfo } from "../../services/contatoService";
-import { getInicio, getDuvidas } from "../../services/inicioService";
 import { base64ParaSrc } from "../../utils/imageDisplay";
+
+const API_URL = "https://dom-cafeteria-api.vercel.app";
 
 function Inicio() {
   const [faqAberto, setFaqAberto] = useState(false);
@@ -16,10 +17,10 @@ function Inicio() {
     async function carregar() {
       try {
         const [dadosInicio, dadosHorarios, dadosContato, dadosFaqs] = await Promise.all([
-          getInicio(),
+          fetch(`${API_URL}/inicio`).then((r) => r.json()),
           getHorarios(),
           getContatoInfo(),
-          getDuvidas(),
+          fetch(`${API_URL}/duvidas`).then((r) => r.json()),
         ]);
 
         if (dadosInicio) {
