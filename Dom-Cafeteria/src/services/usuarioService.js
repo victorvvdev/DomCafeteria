@@ -14,3 +14,19 @@ export async function createUsuario(nome, email, senha, telefone) {
 
   return response.json();
 }
+
+export async function getUsuarioById(id) {
+  const response = await fetch(`${API_URL}/usuarios/${id}`);
+  if (!response.ok) throw new Error("Erro ao buscar usuário.");
+  return response.json();
+}
+
+export async function updateUsuario(id, dados) {
+  const response = await fetch(`${API_URL}/usuarios/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados),
+  });
+  if (!response.ok) throw new Error("Erro ao atualizar usuário.");
+  return response.json();
+}
