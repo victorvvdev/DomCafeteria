@@ -11,7 +11,7 @@ import RecuperarSenha from "../pages/admin/RecuperarSenha";
 import ContatoAdm from "../pages/admin/ContatoAdm";
 import AdicionarAdm from "../pages/admin/AdicionarAdm";
 import CardapioAdm from "../pages/admin/CardapioAdm";
-import EditarLinkCardapio from "../pages/admin/EditarLinkCardapio";
+import EditarLinkCardapio from "../pages/admin/Editarlinkcardapio";
 import EditarCardapio from "../pages/admin/EditarCardapio";
 import EditarPrato from "../pages/admin/EditarPrato";
 import InicioAdm from "../pages/admin/InicioAdm";
