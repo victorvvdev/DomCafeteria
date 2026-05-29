@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/authService";
+import { updateUsuario } from "../../services/usuarioService";
 import "./InfosPessoais2.css";
-
-const API_URL = "http://localhost:3000/api";
 
 function InfosPessoais2() {
   const navigate = useNavigate();
@@ -34,23 +34,8 @@ function InfosPessoais2() {
     setErro(null);
     setCarregando(true);
     try {
-      const verificacao = await fetch(`${API_URL}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailUsuario, senha: senhas.atual }),
-      });
-      if (!verificacao.ok) {
-        setErro("Senha atual incorreta.");
-        setCarregando(false);
-        return;
-      }
-
-      const atualizacao = await fetch(`${API_URL}/usuarios/${idUsuario}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ senha: senhas.nova }),
-      });
-      if (!atualizacao.ok) throw new Error();
+      await login(emailUsuario, senhas.atual);
+      await updateUsuario(idUsuario, { senha: senhas.nova });
 
       setSucesso(true);
       setTimeout(() => navigate("/adm/infospessoais"), 3000);
