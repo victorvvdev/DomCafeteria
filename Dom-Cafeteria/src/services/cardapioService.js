@@ -1,13 +1,13 @@
-const API_URL = "https://dom-cafeteria-api.vercel.app/api";
+const API_URL = "https://dom-cafeteria-api.vercel.app";
 
 export async function getPratos() {
-  const response = await fetch(`${API_URL}/pratos`);
+  const response = await fetch(`${API_URL}/api/pratos`,
   if (!response.ok) throw new Error("Erro ao buscar pratos.");
   return response.json();
 }
 
 export async function createPrato(nome, foto_url) {
-  const response = await fetch(`${API_URL}/pratos`, {
+  const response = await fetch(`${API_URL}/api/pratos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome, foto_url }),
@@ -17,7 +17,7 @@ export async function createPrato(nome, foto_url) {
 }
 
 export async function updatePrato(id, nome, foto_url) {
-  const response = await fetch(`${API_URL}/pratos/${id}`, {
+  const response = await fetch(`${API_URL}/api/pratos/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nome, foto_url }),
@@ -27,7 +27,7 @@ export async function updatePrato(id, nome, foto_url) {
 }
 
 export async function deletePrato(id) {
-  const response = await fetch(`${API_URL}/pratos/${id}`, {
+  const response = await fetch(`${API_URL}/api/pratos/${id}`, {
     method: "DELETE",
   });
   if (!response.ok) throw new Error("Erro ao remover prato.");
@@ -35,13 +35,13 @@ export async function deletePrato(id) {
 }
 
 export async function getLinkCardapio() {
-  const response = await fetch(`${API_URL}/link-cardapio`);
+  const response = await fetch(`${API_URL}/api/link-cardapio`,
   if (!response.ok) throw new Error("Erro ao buscar link.");
   return response.json();
 }
 
 export async function updateLinkCardapio(link) {
-  const response = await fetch(`${API_URL}/link-cardapio`, {
+  const response = await fetch(`${API_URL}/api/link-cardapio`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ link }),
@@ -51,7 +51,7 @@ export async function updateLinkCardapio(link) {
 }
 
 export async function removeLinkCardapio() {
-  const response = await fetch(`${API_URL}/link-cardapio`, {
+  const response = await fetch(`${API_URL}/api/link-cardapio`, {
     method: "DELETE",
   });
   if (!response.ok) throw new Error("Erro ao remover link.");

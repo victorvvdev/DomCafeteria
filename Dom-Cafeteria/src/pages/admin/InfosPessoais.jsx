@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUsuarioById, updateUsuario } from "../../services/usuarioService";
 import "./InfosPessoais.css";
-
-const API_URL = "http://localhost:3000/api";
 
 function InfosPessoais() {
   const navigate = useNavigate();
@@ -26,9 +25,7 @@ function InfosPessoais() {
 
     async function carregar() {
       try {
-        const response = await fetch(`${API_URL}/usuarios/${usuario.idUsuarios}`);
-        if (!response.ok) throw new Error();
-        const data = await response.json();
+        const data = await getUsuarioById(usuario.idUsuarios);
         setDados({ nome: data.nome, telefone: data.telefone, email: data.email });
       } catch {
         setDados({ nome: usuario.nome, telefone: "", email: usuario.email });
@@ -65,12 +62,7 @@ function InfosPessoais() {
     try {
       const response = await fetch(`${API_URL}/usuarios/${idUsuario}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ [campoParaSalvar]: dados[campoParaSalvar] }),
-      });
-      if (!response.ok) throw new Error();
-
-      const usuarioAtual = JSON.parse(sessionStorage.getItem("usuario"));
+      await updateUsuario(idUsuario, { [campoParaSalvar]: dados[campoParaSalvar] }ssionStorage.getItem("usuario"));
       sessionStorage.setItem("usuario", JSON.stringify({ ...usuarioAtual, [campoParaSalvar]: dados[campoParaSalvar] }));
 
       setEditando({ ...editando, [campoParaSalvar]: false });

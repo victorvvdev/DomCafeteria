@@ -1,7 +1,7 @@
-const API_URL = "https://dom-cafeteria-api.vercel.app/api";
+const API_URL = "https://dom-cafeteria-api.vercel.app";
 
 export async function login(email, senha) {
-  const response = await fetch(`${API_URL}/auth/login`, {
+  const response = await fetch(`${API_URL}/api/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, senha }),
@@ -16,7 +16,7 @@ export async function login(email, senha) {
 }
 
 export async function recuperarSenha(email) {
-  const response = await fetch(`${API_URL}/auth/recuperar-senha`, {
+  const response = await fetch(`${API_URL}/api/auth/recuperar-senha`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),

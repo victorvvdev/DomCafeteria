@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import "./Inicio.css";
 import { getHorarios, getContatoInfo } from "../../services/contatoService";
+import { getInicio, getDuvidas } from "../../services/inicioService";
 import { base64ParaSrc } from "../../utils/imageDisplay";
-
-const API_URL = "http://localhost:3000/api";
 
 function Inicio() {
   const [faqAberto, setFaqAberto] = useState(false);
@@ -17,10 +16,10 @@ function Inicio() {
     async function carregar() {
       try {
         const [dadosInicio, dadosHorarios, dadosContato, dadosFaqs] = await Promise.all([
-          fetch(`${API_URL}/inicio`).then((r) => r.json()),
+          getInicio(),
           getHorarios(),
           getContatoInfo(),
-          fetch(`${API_URL}/duvidas`).then((r) => r.json()),
+          getDuvidas(),
         ]);
 
         if (dadosInicio) {
