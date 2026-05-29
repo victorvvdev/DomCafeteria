@@ -6,7 +6,7 @@ import {
   removeLinkCardapio,
 } from "../../services/cardapioService";
 import { FaEdit, FaTrash, FaTimes, FaArrowLeft } from "react-icons/fa";
-import "../../styles/EditarLinkCardapio.css";
+import "../../styles/Editarlinkcardapio.css";
 
 function isLinkValido(link) {
   try {
